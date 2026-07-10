@@ -1,179 +1,100 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import React from 'react';
+import Link from 'next/link';
+import {
+  Mail,
+  MessageCircle,
+  ArrowRight,
+  Plane,
+  ShieldCheck,
+  MapPin,
+  UserCircle,
+} from 'lucide-react';
 
-// import RecipientInput from '@/components/email/RecipientInput';
-import SubjectInput from '@/components/email/SubjectInput';
-import TemplateSelector from '@/components/email/TemplateSelector';
-import TemplatePreview from '@/components/email/TemplatePreview';
-import AttachmentUploader from '@/components/email/AttachmentUploader';
-import BulkEmailPaste from '@/components/email/BulkEmailPaste';
-import ScheduleMail from '@/components/email/ScheduleMail';
-import ProgressBar from '@/components/email/ProgressBar';
-import SendButton from '@/components/email/SendButton';
-
-import { WelcomeTemplate } from '@/components/templates/WelcomeTemplate';
-import { OfferTemplate } from '@/components/templates/OfferTemplate';
-import { NewsletterTemplate } from '@/components/templates/NewsletterTemplate';
-import { TravelTemplate } from '@/components/templates/TravelTemplate';
-import { HotelTemplate } from '@/components/templates/HotelTemplate';
-import { BirthdayTemplate } from '@/components/templates/BirthdayTemplate';
-import { InvoiceTemplate } from '@/components/templates/InvoiceTemplate';
-import { PasswordResetTemplate } from '@/components/templates/PasswordResetTemplate';
-
-export default function Home() {
-  const [loading, setLoading] = useState(false);
-
-  const [recipients, setRecipients] = useState<string[]>([]);
-
-  const [subject, setSubject] = useState('Welcome to AVDMC');
-
-  const [template, setTemplate] = useState('welcome');
-
-  const [html, setHtml] = useState('');
-
-  const [files, setFiles] = useState<File[]>([]);
-
-  const [progress, setProgress] = useState(0);
-
-  const [current, setCurrent] = useState(0);
-
-  const [scheduleEnabled, setScheduleEnabled] = useState(false);
-
-  const [scheduleDate, setScheduleDate] = useState('');
-
-  const [scheduleTime, setScheduleTime] = useState('');
-
-  useEffect(() => {
-    switch (template) {
-      case 'welcome':
-        setHtml(WelcomeTemplate('Tarun'));
-        break;
-
-      case 'offer':
-        setHtml(OfferTemplate());
-        break;
-
-      case 'newsletter':
-        setHtml(NewsletterTemplate());
-        break;
-
-      case 'travel':
-        setHtml(TravelTemplate());
-        break;
-
-      case 'hotel':
-        setHtml(HotelTemplate());
-        break;
-
-      case 'birthday':
-        setHtml(BirthdayTemplate('Tarun'));
-        break;
-
-      case 'invoice':
-        setHtml(InvoiceTemplate());
-        break;
-
-      case 'password-reset':
-        setHtml(PasswordResetTemplate('https://avdmc.com/reset-password'));
-        break;
-    }
-  }, [template]);
-
-  async function sendMail() {
-    try {
-      setLoading(true);
-
-      setProgress(15);
-
-      const payload = {
-        to: recipients,
-        subject,
-        html,
-        schedule: {
-          enabled: scheduleEnabled,
-          date: scheduleDate,
-          time: scheduleTime,
-        },
-      };
-
-      const res = await fetch('/api/email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      setProgress(70);
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message);
-      }
-
-      setProgress(100);
-      setCurrent(recipients.length);
-
-      toast.success('Email sent successfully');
-    } catch (error: any) {
-      toast.error(error.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-slate-100 p-10">
-      <div className="mx-auto max-w-7xl">
-        <h1 className="mb-8 text-center text-4xl font-bold">AWS SES Email Marketing</h1>
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <nav className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="text-xl font-bold text-slate-900 tracking-tighter">AVDMC</div>
+          <Link
+            href="/login"
+            className="flex items-center gap-2 bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-slate-800 transition-colors"
+          >
+            <UserCircle size={18} />
+            Login
+          </Link>
+        </nav>
+      </header>
 
-        <div className="grid gap-8 lg:grid-cols-2">
-          <div className="space-y-6">
-            <BulkEmailPaste
-              onImport={(emails) => {
-                setRecipients(emails);
+      {/* Main Content */}
+      <main className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+        {/* Hero Section */}
+        <section className="text-center py-12">
+          <h1 className="text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            Welcome to <span className="text-blue-600">Avdmc</span>
+          </h1>
+          <p className="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+            The premium travel management suite. Orchestrate your global marketing reach with
+            precision-engineered email and messaging tools.
+          </p>
+        </section>
 
-                toast.success(`${emails.length} email(s) imported`);
-              }}
-            />
+        {/* Marketing Hub Cards */}
+        <section className="grid md:grid-cols-2 gap-8">
+          <MarketingCard
+            title="Email Campaigns"
+            desc="Craft bespoke newsletters and automated drip sequences for your elite clientele."
+            icon={<Mail className="text-blue-600" size={32} />}
+            href="/email"
+            action="Compose"
+          />
+          <MarketingCard
+            title="WhatsApp Marketing"
+            desc="Direct, real-time engagement via secure, encrypted messaging channels."
+            icon={<MessageCircle className="text-green-600" size={32} />}
+            href="/whatsapp"
+            action="Connect"
+          />
+        </section>
+      </main>
 
-            {/* <RecipientInput value={recipients} onChange={setRecipients} /> */}
-
-            <SubjectInput value={subject} onChange={setSubject} />
-
-            <TemplateSelector value={template} onChange={setTemplate} />
-
-            {/* <EmailEditor value={html} onChange={setHtml} /> */}
-
-            <AttachmentUploader files={files} onChange={setFiles} />
-
-            <ScheduleMail
-              enabled={scheduleEnabled}
-              date={scheduleDate}
-              time={scheduleTime}
-              onEnabledChange={setScheduleEnabled}
-              onDateChange={setScheduleDate}
-              onTimeChange={setScheduleTime}
-            />
-
-            <ProgressBar
-              progress={progress}
-              current={current}
-              total={recipients.length}
-              status={loading ? 'Sending...' : 'Ready'}
-            />
-
-            <SendButton loading={loading} onClick={sendMail} />
-          </div>
-
-          <div>
-            <TemplatePreview template={template} html={html} />
-          </div>
+      {/* Footer */}
+      <footer className="border-t border-slate-200 mt-20 pt-10 pb-12 text-center text-slate-400 text-sm">
+        <div className="flex justify-center gap-12 mb-8">
+          <FooterIcon icon={<Plane />} label="Luxury Travel" />
+          <FooterIcon icon={<ShieldCheck />} label="Secure Portal" />
+          <FooterIcon icon={<MapPin />} label="Global Reach" />
         </div>
-      </div>
-    </main>
+        <p>&copy; {new Date().getFullYear()} Avdmc Travel Solutions. All rights reserved.</p>
+      </footer>
+    </div>
+  );
+}
+
+function MarketingCard({ title, desc, icon, href, action }: any) {
+  return (
+    <div className="group bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300">
+      <div className="mb-4">{icon}</div>
+      <h3 className="text-xl font-semibold text-slate-900 mb-2">{title}</h3>
+      <p className="text-slate-500 mb-6">{desc}</p>
+      <Link
+        href={href}
+        className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 group-hover:gap-3 transition-all"
+      >
+        {action} <ArrowRight size={16} />
+      </Link>
+    </div>
+  );
+}
+
+function FooterIcon({ icon, label }: any) {
+  return (
+    <div className="flex flex-col items-center gap-2 text-slate-600">
+      {icon}
+      <span className="text-xs uppercase tracking-widest font-medium">{label}</span>
+    </div>
   );
 }
