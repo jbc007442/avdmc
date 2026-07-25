@@ -8,7 +8,7 @@ export default function PrivacyPolicyPage() {
           <div className="bg-blue-700 px-10 py-12 text-white">
             <h1 className="text-5xl font-bold">Privacy Policy</h1>
 
-            <p className="mt-4 text-lg text-blue-100">Effective Date: July 25, 2026</p>
+            <p className="mt-4 text-lg text-blue-100">Effective Date: August 25, 2021</p>
 
             <p className="mt-6 max-w-4xl text-blue-50 leading-8">
               M/S AV DMC ("Company", "we", "our", or "us") values your privacy and is committed to
