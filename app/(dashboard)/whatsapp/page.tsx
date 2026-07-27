@@ -5,9 +5,6 @@ import { toast } from 'react-toastify';
 
 const templates = [
   { name: 'welcome_avdmc', lang: 'en', hasImage: true, params: ['name'] },
-  { name: 'av_mc1', lang: 'en_US', hasImage: false, params: [] },
-  { name: 'kuda_vllinagali', lang: 'en', hasImage: true, params: [] },
-  { name: 'hello_world', lang: 'en_US', hasImage: false, params: [] },
 ];
 
 export default function Page() {
