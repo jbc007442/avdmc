@@ -6,22 +6,14 @@ const TOKEN = process.env.WHATSAPP_ACCESS_TOKEN!;
 const VERSION = process.env.WHATSAPP_API_VERSION || 'v21.0';
 
 // 1. For Meta Verification (GET)
-// export async function GET(req: NextRequest) {
-//   const mode = req.nextUrl.searchParams.get('hub.mode');
-//   const token = req.nextUrl.searchParams.get('hub.verify_token');
-//   const challenge = req.nextUrl.searchParams.get('hub.challenge');
-
-//   if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-//     console.log('Webhook Verified!');
-//     return new NextResponse(challenge, { status: 200 });
-//   }
-//   return new NextResponse('Forbidden', { status: 403 });
-// }
-
 export async function GET(req: NextRequest) {
+  const mode = req.nextUrl.searchParams.get('hub.mode');
+  const token = req.nextUrl.searchParams.get('hub.verify_token');
   const challenge = req.nextUrl.searchParams.get('hub.challenge');
-  console.log('VERIFY HIT', req.nextUrl.searchParams.toString());
-  return new NextResponse(challenge || 'ok', { status: 200 });
+  if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+    return new NextResponse(challenge, { status: 200 });
+  }
+  return new NextResponse('Forbidden', { status: 403 });
 }
 
 // 2. When user sends message (POST)
