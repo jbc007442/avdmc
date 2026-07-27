@@ -1,30 +1,26 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
-const templates = ['av_mc1', 'kuda_vllinagali', 'your_third_template'];
-
-type Result = {
-  phone: string;
-  status: string;
-  httpStatus?: number;
-  response?: string;
-  error?: string;
-};
+const templates = [
+  { name: 'welcome_avdmc', lang: 'en', hasImage: true, params: ['name'] },
+  { name: 'av_mc1', lang: 'en_US', hasImage: false, params: [] },
+  { name: 'kuda_vllinagali', lang: 'en', hasImage: true, params: [] },
+  { name: 'hello_world', lang: 'en_US', hasImage: false, params: [] },
+];
 
 export default function Page() {
   const [phones, setPhones] = useState('');
-  const [template, setTemplate] = useState(templates[0]);
-  const [htype, setHtype] = useState('');
-  const [mediaUrl, setMediaUrl] = useState('');
-  const [language, setLanguage] = useState('en');
-
-  // Template variables
-  const [parameters, setParameters] = useState('');
-
+  const [template, setTemplate] = useState(templates[0].name);
+  const [mediaUrl, setMediaUrl] = useState(
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLHNePLFGX8ZZ_bTYC5dBzK8OLp_IKipXZ8XMdsbem1A&s=10'
+  );
+  const [parameters, setParameters] = useState('Tarun');
   const [sending, setSending] = useState(false);
+  const [results, setResults] = useState<any[]>([]);
 
-  const [results, setResults] = useState<Result[]>([]);
+  const currentTemplate = templates.find((t) => t.name === template)!;
 
   const sendWhatsApp = async () => {
     const phoneList = phones
@@ -32,208 +28,156 @@ export default function Page() {
       .map((p) => p.trim().replace(/\D/g, ''))
       .filter(Boolean)
       .map((p) => (p.length === 10 ? `91${p}` : p));
-
-    if (!phoneList.length) {
-      alert('Enter phone number(s)');
-      return;
-    }
-
-    if (htype && !mediaUrl) {
-      alert('Please enter Media URL');
-      return;
-    }
+    if (!phoneList.length) return toast.warning('Enter phone numbers');
+    if (currentTemplate.hasImage && !mediaUrl)
+      return toast.warning('Media URL required for this template');
 
     setSending(true);
     setResults([]);
 
-    const bodyParameters = parameters
-      .split(',')
+    // FIX: Convert params to named format for welcome_avdmc
+    const paramLines = parameters
+      .split(/\n|,/)
       .map((p) => p.trim())
       .filter(Boolean);
+    let bodyParams: any[] = [];
 
-    for (const phone of phoneList) {
+    if (template === 'welcome_avdmc') {
+      // Named param format
+      bodyParams = paramLines.map((name) => ({ parameter_name: 'name', text: name }));
+      // If bulk: use first name for all, or if same count as phones, map one-to-one
+      if (paramLines.length === 1 && phoneList.length > 1) {
+        bodyParams = [{ parameter_name: 'name', text: paramLines[0] }];
+      }
+    } else {
+      bodyParams = paramLines;
+    }
+
+    const toastId = toast.loading('Sending...');
+
+    for (let i = 0; i < phoneList.length; i++) {
+      const phone = phoneList[i];
+      const paramsToSend =
+        template === 'welcome_avdmc' && paramLines.length === phoneList.length
+          ? [{ parameter_name: 'name', text: paramLines[i] }]
+          : bodyParams;
+
       try {
         const res = await fetch('/api/whatsapp/send', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             phone,
             template,
-            language,
-            htype: htype || undefined,
-            mediaUrl: mediaUrl || undefined,
-            parameters: bodyParameters,
+            language: currentTemplate.lang,
+            htype: currentTemplate.hasImage ? 'image' : undefined,
+            mediaUrl: currentTemplate.hasImage ? mediaUrl : undefined,
+            parameters: paramsToSend,
           }),
         });
-
         const data = await res.json();
-
         setResults((prev) => [
           ...prev,
           {
             phone,
             status: data.success ? '✅ Sent' : '❌ Failed',
-            httpStatus: data.status,
-            response: JSON.stringify(data.response, null, 2),
-            error: data.response?.error?.message || data.error || '',
+            error: data.response?.error?.message || '',
           },
         ]);
-      } catch (err) {
-        setResults((prev) => [
-          ...prev,
-          {
-            phone,
-            status: '❌ Failed',
-            error: err instanceof Error ? err.message : 'Unknown error',
-          },
-        ]);
+        data.success ? toast.success(`✅ ${phone}`) : toast.error(`❌ ${phone}`);
+      } catch (e: any) {
+        setResults((prev) => [...prev, { phone, status: '❌ Failed', error: e.message }]);
       }
     }
-
+    toast.dismiss(toastId);
+    toast.success('Completed');
     setSending(false);
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">WhatsApp Cloud API</h1>
+    <div className="max-w-5xl mx-auto p-6">
+      <div className="bg-white border rounded-2xl shadow-sm p-8">
+        <h1 className="text-2xl font-bold">WhatsApp Sender - Fixed</h1>
+        <p className="text-zinc-500 text-sm mb-6">welcome_avdmc is Ready ✅</p>
 
-      <div className="space-y-5">
-        <div>
-          <label className="font-medium block mb-2">Template</label>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <div>
+              <label className="font-medium text-sm">Template</label>
+              <select
+                className="w-full border rounded-xl p-3 mt-1"
+                value={template}
+                onChange={(e) => setTemplate(e.target.value)}
+              >
+                {templates.map((t) => (
+                  <option key={t.name} value={t.name}>
+                    {t.name} ({t.lang}) {t.hasImage ? '+ Image' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="font-medium text-sm">
+                Media URL {currentTemplate.hasImage && '*'}
+              </label>
+              <input
+                className="w-full border rounded-xl p-3 mt-1"
+                value={mediaUrl}
+                onChange={(e) => setMediaUrl(e.target.value)}
+                placeholder="https://..."
+                disabled={!currentTemplate.hasImage}
+              />
+            </div>
+            <div>
+              <label className="font-medium text-sm">Language: {currentTemplate.lang}</label>
+            </div>
+          </div>
 
-          <select
-            className="w-full border rounded-lg p-3"
-            value={template}
-            onChange={(e) => setTemplate(e.target.value)}
-          >
-            {templates.map((t) => (
-              <option key={t}>{t}</option>
+          <div className="space-y-4">
+            <div>
+              <label className="font-medium text-sm">
+                Name Parameter (one per line, same order as phones)
+              </label>
+              <textarea
+                rows={4}
+                className="w-full border rounded-xl p-3 mt-1"
+                value={parameters}
+                onChange={(e) => setParameters(e.target.value)}
+                placeholder="Tarun&#10;Amit&#10;Rahul"
+              />
+            </div>
+            <div>
+              <label className="font-medium text-sm">Phone Numbers</label>
+              <textarea
+                rows={4}
+                className="w-full border rounded-xl p-3 mt-1"
+                value={phones}
+                onChange={(e) => setPhones(e.target.value)}
+                placeholder="7999267389&#10;9876543210"
+              />
+            </div>
+            <button
+              onClick={sendWhatsApp}
+              disabled={sending}
+              className="w-full bg-green-600 text-white rounded-xl py-3 font-semibold disabled:opacity-50"
+            >
+              {sending ? 'Sending...' : `Send ${template}`}
+            </button>
+          </div>
+        </div>
+
+        {results.length > 0 && (
+          <div className="mt-6 border-t pt-4">
+            {results.map((r, i) => (
+              <div key={i} className="text-sm py-1 flex justify-between">
+                <span>{r.phone}</span>
+                <span>
+                  {r.status} {r.error}
+                </span>
+              </div>
             ))}
-          </select>
-        </div>
-
-        <div>
-          <label className="font-medium block mb-2">Language</label>
-
-          <input
-            className="w-full border rounded-lg p-3"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-            placeholder="en"
-          />
-        </div>
-
-        <div>
-          <label className="font-medium block mb-2">Header Type</label>
-
-          <select
-            className="w-full border rounded-lg p-3"
-            value={htype}
-            onChange={(e) => setHtype(e.target.value)}
-          >
-            <option value="">No Header</option>
-            <option value="image">Image</option>
-            <option value="video">Video</option>
-            <option value="document">Document</option>
-          </select>
-        </div>
-
-        {htype && (
-          <div>
-            <label className="font-medium block mb-2">Media URL</label>
-
-            <input
-              className="w-full border rounded-lg p-3"
-              placeholder="https://example.com/image.jpg"
-              value={mediaUrl}
-              onChange={(e) => setMediaUrl(e.target.value)}
-            />
           </div>
         )}
-
-        <div>
-          <label className="font-medium block mb-2">Template Parameters</label>
-
-          <input
-            className="w-full border rounded-lg p-3"
-            placeholder="Tarun Kumar,BK000123,Delhi"
-            value={parameters}
-            onChange={(e) => setParameters(e.target.value)}
-          />
-
-          <p className="text-sm text-gray-500 mt-1">Separate variables using commas.</p>
-        </div>
-
-        <div>
-          <label className="font-medium block mb-2">Phone Numbers</label>
-
-          <textarea
-            rows={8}
-            className="w-full border rounded-lg p-3"
-            placeholder={`8950475004
-9876543210
-
-or
-
-8950475004,9876543210`}
-            value={phones}
-            onChange={(e) => setPhones(e.target.value)}
-          />
-        </div>
-
-        <button
-          disabled={sending}
-          onClick={sendWhatsApp}
-          className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg disabled:opacity-60"
-        >
-          {sending ? 'Sending...' : 'Send WhatsApp'}
-        </button>
-      </div>
-
-      <div className="mt-10">
-        <h2 className="text-2xl font-semibold mb-4">Results</h2>
-
-        <table className="w-full border-collapse border">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="border p-2">Phone</th>
-              <th className="border p-2">Status</th>
-              <th className="border p-2">HTTP</th>
-              <th className="border p-2">Response</th>
-              <th className="border p-2">Error</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {results.length === 0 && (
-              <tr>
-                <td colSpan={5} className="text-center border p-6 text-gray-500">
-                  No messages sent yet.
-                </td>
-              </tr>
-            )}
-
-            {results.map((item, index) => (
-              <tr key={index}>
-                <td className="border p-2">{item.phone}</td>
-
-                <td className="border p-2">{item.status}</td>
-
-                <td className="border p-2">{item.httpStatus ?? '-'}</td>
-
-                <td className="border p-2 whitespace-pre-wrap break-all text-sm">
-                  {item.response}
-                </td>
-
-                <td className="border p-2 whitespace-pre-wrap break-all text-red-600 text-sm">
-                  {item.error}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
       </div>
     </div>
   );
