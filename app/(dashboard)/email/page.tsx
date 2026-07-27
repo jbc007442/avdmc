@@ -148,16 +148,16 @@ export default function Home() {
 
             {/* <EmailEditor value={html} onChange={setHtml} /> */}
 
-            <AttachmentUploader files={files} onChange={setFiles} />
+            {/* <AttachmentUploader files={files} onChange={setFiles} /> */}
 
-            <ScheduleMail
+            {/* <ScheduleMail
               enabled={scheduleEnabled}
               date={scheduleDate}
               time={scheduleTime}
               onEnabledChange={setScheduleEnabled}
               onDateChange={setScheduleDate}
               onTimeChange={setScheduleTime}
-            />
+            /> */}
 
             <ProgressBar
               progress={progress}
