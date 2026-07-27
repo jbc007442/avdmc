@@ -23,39 +23,37 @@ export async function POST(req: NextRequest) {
   const body = await req.json();
   console.log('Incoming:', JSON.stringify(body, null, 2));
 
-  try {
-    const entry = body.entry?.[0]?.changes?.[0]?.value;
-    const message = entry?.messages?.[0];
-    const from = message?.from; // user phone
-    const text = message?.text?.body?.toLowerCase() || '';
-    const buttonId =
-      message?.interactive?.button_reply?.id || message?.interactive?.list_reply?.id || '';
+  // IMPORTANT: Return 200 immediately
+  const response = NextResponse.json({ status: 'ok' }, { status: 200 });
 
-    if (!from) return NextResponse.json({ ok: true });
+  // Process after
+  (async () => {
+    try {
+      const entry = body.entry?.[0]?.changes?.[0]?.value;
+      const message = entry?.messages?.[0];
+      if (!message) return;
+      const from = message?.from;
+      const text = message?.text?.body?.toLowerCase()?.trim() || '';
+      const buttonId =
+        message?.interactive?.button_reply?.id || message?.interactive?.list_reply?.id || '';
 
-    // IF USER SENDS HI / HELLO / START
-    if (['hi', 'hello', 'hey', 'hii', 'start'].some((w) => text.includes(w))) {
-      await sendDestinationList(from);
-    }
-
-    // IF USER SELECTS DESTINATION
-    if (buttonId) {
-      if (['maldives', 'singapore', 'malaysia'].some((d) => buttonId.includes(d))) {
-        await sendText(
-          from,
-          `Great! You selected *${buttonId.toUpperCase()}*.\n\nOur team will share best packages for ${buttonId} shortly.\n\nPlease share:\n1. Travel Date\n2. No. of Guests`
-        );
-        // Here you can also save lead to your TravelCRM DB
+      if (text && ['hi', 'hello', 'hey', 'hii', 'start'].some((w) => text.includes(w))) {
+        await sendDestinationList(from);
       }
-      if (buttonId === 'yes_btn') await sendDestinationList(from);
-      if (buttonId === 'no_btn')
-        await sendText(from, 'Thank you for contacting AV_DMC! Have a great day 🙏');
+      if (buttonId) {
+        if (['maldives', 'singapore', 'malaysia'].includes(buttonId)) {
+          await sendText(
+            from,
+            `Great! You selected *${buttonId.toUpperCase()}*.\n\nOur team will share best packages for ${buttonId} shortly.\n\nPlease share:\n1. Travel Date\n2. No. of Guests`
+          );
+        }
+      }
+    } catch (e) {
+      console.error(e);
     }
-  } catch (e) {
-    console.error(e);
-  }
+  })();
 
-  return NextResponse.json({ status: 'ok' }, { status: 200 });
+  return response;
 }
 
 // Send Destination List
