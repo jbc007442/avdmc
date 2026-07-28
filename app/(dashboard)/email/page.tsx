@@ -3,80 +3,40 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-// import RecipientInput from '@/components/email/RecipientInput';
 import SubjectInput from '@/components/email/SubjectInput';
-import TemplateSelector from '@/components/email/TemplateSelector';
 import TemplatePreview from '@/components/email/TemplatePreview';
-import AttachmentUploader from '@/components/email/AttachmentUploader';
 import BulkEmailPaste from '@/components/email/BulkEmailPaste';
-import ScheduleMail from '@/components/email/ScheduleMail';
 import ProgressBar from '@/components/email/ProgressBar';
 import SendButton from '@/components/email/SendButton';
 
-import { WelcomeTemplate } from '@/components/templates/WelcomeTemplate';
-import { OfferTemplate } from '@/components/templates/OfferTemplate';
-import { NewsletterTemplate } from '@/components/templates/NewsletterTemplate';
 import { TravelTemplate } from '@/components/templates/TravelTemplate';
-import { HotelTemplate } from '@/components/templates/HotelTemplate';
-import { BirthdayTemplate } from '@/components/templates/BirthdayTemplate';
-import { InvoiceTemplate } from '@/components/templates/InvoiceTemplate';
-import { PasswordResetTemplate } from '@/components/templates/PasswordResetTemplate';
+import { SingaporeTemplate } from '@/components/templates/SingaporeTemplate';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
 
   const [recipients, setRecipients] = useState<string[]>([]);
 
-  const [subject, setSubject] = useState('Welcome to AVDMC');
+  const [template, setTemplate] = useState<'travel' | 'singapore'>('travel');
 
-  const [template, setTemplate] = useState('welcome');
+  const [subject, setSubject] = useState('Maldives Special Offer');
 
   const [html, setHtml] = useState('');
-
-  const [files, setFiles] = useState<File[]>([]);
 
   const [progress, setProgress] = useState(0);
 
   const [current, setCurrent] = useState(0);
 
-  const [scheduleEnabled, setScheduleEnabled] = useState(false);
-
-  const [scheduleDate, setScheduleDate] = useState('');
-
-  const [scheduleTime, setScheduleTime] = useState('');
-
   useEffect(() => {
     switch (template) {
-      case 'welcome':
-        setHtml(WelcomeTemplate('Tarun'));
-        break;
-
-      case 'offer':
-        setHtml(OfferTemplate());
-        break;
-
-      case 'newsletter':
-        setHtml(NewsletterTemplate());
-        break;
-
       case 'travel':
         setHtml(TravelTemplate());
+        setSubject('Maldives Special Offer');
         break;
 
-      case 'hotel':
-        setHtml(HotelTemplate());
-        break;
-
-      case 'birthday':
-        setHtml(BirthdayTemplate('Tarun'));
-        break;
-
-      case 'invoice':
-        setHtml(InvoiceTemplate());
-        break;
-
-      case 'password-reset':
-        setHtml(PasswordResetTemplate('https://avdmc.com/reset-password'));
+      case 'singapore':
+        setHtml(SingaporeTemplate());
+        setSubject('Singapore Getaway');
         break;
     }
   }, [template]);
@@ -91,11 +51,6 @@ export default function Home() {
         to: recipients,
         subject,
         html,
-        schedule: {
-          enabled: scheduleEnabled,
-          date: scheduleDate,
-          time: scheduleTime,
-        },
       };
 
       const res = await fetch('/api/email', {
@@ -115,9 +70,9 @@ export default function Home() {
       }
 
       setProgress(100);
-      setCurrent(recipients.length);
+      setCurrent(data.sent ?? recipients.length);
 
-      toast.success('Email sent successfully');
+      toast.success(`Successfully sent ${data.sent ?? recipients.length} email(s)`);
     } catch (error: any) {
       toast.error(error.message);
     } finally {
@@ -131,33 +86,31 @@ export default function Home() {
         <h1 className="mb-8 text-center text-4xl font-bold">AWS SES Email Marketing</h1>
 
         <div className="grid gap-8 lg:grid-cols-2">
+          {/* Left Side */}
           <div className="space-y-6">
             <BulkEmailPaste
               onImport={(emails) => {
                 setRecipients(emails);
-
                 toast.success(`${emails.length} email(s) imported`);
               }}
             />
 
-            {/* <RecipientInput value={recipients} onChange={setRecipients} /> */}
-
             <SubjectInput value={subject} onChange={setSubject} />
 
-            <TemplateSelector value={template} onChange={setTemplate} />
+            {/* Template Selector */}
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-700">Email Template</label>
 
-            {/* <EmailEditor value={html} onChange={setHtml} /> */}
+              <select
+                value={template}
+                onChange={(e) => setTemplate(e.target.value as 'travel' | 'singapore')}
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none focus:border-blue-500"
+              >
+                <option value="travel">Maldives Offer</option>
 
-            {/* <AttachmentUploader files={files} onChange={setFiles} /> */}
-
-            {/* <ScheduleMail
-              enabled={scheduleEnabled}
-              date={scheduleDate}
-              time={scheduleTime}
-              onEnabledChange={setScheduleEnabled}
-              onDateChange={setScheduleDate}
-              onTimeChange={setScheduleTime}
-            /> */}
+                <option value="singapore">Singapore Getaway</option>
+              </select>
+            </div>
 
             <ProgressBar
               progress={progress}
@@ -169,6 +122,7 @@ export default function Home() {
             <SendButton loading={loading} onClick={sendMail} />
           </div>
 
+          {/* Right Side */}
           <div>
             <TemplatePreview template={template} html={html} />
           </div>
