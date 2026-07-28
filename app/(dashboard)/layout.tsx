@@ -52,6 +52,8 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
             <NavItem href="/email" icon={<Mail size={18} />} label="Email Campaigns" />
 
             <NavItem href="/whatsapp" icon={<MessageCircle size={18} />} label="WhatsApp Flow" />
+
+            <NavItem href="/screen" icon={<MessageCircle size={18} />} label="WhatsApp Screen" />
           </div>
 
           <button

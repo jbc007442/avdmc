@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || 'avdmc_whatsapp_verify';
-const PHONE_ID = process.env.WHATSAPP_PHONE_NUMBER_ID!; // 1291947837325825
+const PHONE_ID = process.env.WHATSAPP_PHONE_NUMBER_ID!;
 const TOKEN = process.env.WHATSAPP_ACCESS_TOKEN!;
 const VERSION = process.env.WHATSAPP_API_VERSION || 'v21.0';
 
-// 1. For Meta Verification (GET)
+export const whatsappInbox: any[] = (global as any).whatsappInbox || [];
+(global as any).whatsappInbox = whatsappInbox;
+
 export async function GET(req: NextRequest) {
   const mode = req.nextUrl.searchParams.get('hub.mode');
   const token = req.nextUrl.searchParams.get('hub.verify_token');
@@ -16,45 +18,47 @@ export async function GET(req: NextRequest) {
   return new NextResponse('Forbidden', { status: 403 });
 }
 
-// 2. When user sends message (POST)
 export async function POST(req: NextRequest) {
   const body = await req.json();
   console.log('Incoming:', JSON.stringify(body, null, 2));
 
-  // IMPORTANT: Return 200 immediately
-  const response = NextResponse.json({ status: 'ok' }, { status: 200 });
+  try {
+    const entry = body.entry?.[0]?.changes?.[0]?.value;
+    const message = entry?.messages?.[0];
+    if (!message) return NextResponse.json({ ok: true });
 
-  // Process after
-  (async () => {
-    try {
-      const entry = body.entry?.[0]?.changes?.[0]?.value;
-      const message = entry?.messages?.[0];
-      if (!message) return;
-      const from = message?.from;
-      const text = message?.text?.body?.toLowerCase()?.trim() || '';
-      const buttonId =
-        message?.interactive?.button_reply?.id || message?.interactive?.list_reply?.id || '';
+    const from = message?.from;
+    const text = message?.text?.body?.toLowerCase()?.trim() || '';
+    const buttonId =
+      message?.interactive?.button_reply?.id || message?.interactive?.list_reply?.id || '';
 
-      if (text && ['hi', 'hello', 'hey', 'hii', 'start'].some((w) => text.includes(w))) {
-        await sendDestinationList(from);
-      }
-      if (buttonId) {
-        if (['maldives', 'singapore', 'malaysia'].includes(buttonId)) {
-          await sendText(
-            from,
-            `Great! You selected *${buttonId.toUpperCase()}*.\n\nOur team will share best packages for ${buttonId} shortly.\n\nPlease share:\n1. Travel Date\n2. No. of Guests`
-          );
-        }
-      }
-    } catch (e) {
-      console.error(e);
+    // SAVE TO INBOX FOR YOUR REACT SCREEN
+    if (from && (text || buttonId)) {
+      whatsappInbox.unshift({
+        from,
+        text: text || buttonId,
+        direction: 'INCOMING',
+        time: new Date().toLocaleString(),
+      });
     }
-  })();
 
-  return response;
+    if (from && text && ['hi', 'hello', 'hey', 'hii', 'start'].some((w) => text.includes(w))) {
+      await sendDestinationList(from);
+    }
+
+    if (from && buttonId && ['maldives', 'singapore', 'malaysia'].includes(buttonId)) {
+      await sendText(
+        from,
+        `Great! You selected *${buttonId.toUpperCase()}*.\n\nOur team will share best packages for ${buttonId} shortly.\n\nPlease share:\n1. Travel Date\n2. No. of Guests`
+      );
+    }
+  } catch (e) {
+    console.error('WEBHOOK ERROR:', e);
+  }
+
+  return NextResponse.json({ status: 'ok' }, { status: 200 });
 }
 
-// Send Destination List
 async function sendDestinationList(to: string) {
   const url = `https://graph.facebook.com/${VERSION}/${PHONE_ID}/messages`;
   const payload = {
@@ -83,11 +87,18 @@ async function sendDestinationList(to: string) {
       },
     },
   };
-
-  await fetch(url, {
+  const res = await fetch(url, {
     method: 'POST',
     headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
+  });
+  console.log('Send List Response:', await res.text());
+
+  whatsappInbox.unshift({
+    from: to,
+    text: 'Sent: Destination List (Maldives, Singapore, Malaysia)',
+    direction: 'OUTGOING',
+    time: new Date().toLocaleString(),
   });
 }
 
@@ -96,11 +107,6 @@ async function sendText(to: string, text: string) {
   await fetch(url, {
     method: 'POST',
     headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      to,
-      type: 'text',
-      text: { body: text },
-    }),
+    body: JSON.stringify({ messaging_product: 'whatsapp', to, type: 'text', text: { body: text } }),
   });
 }
