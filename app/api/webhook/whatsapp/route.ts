@@ -340,6 +340,43 @@ async function sendServiceList(to: string) {
 async function sendSalesContact(to: string) {
   await sendTextMessage(
     to,
-    `📞 Contact our Sales Team:\n\n+91 95822 65641\n+91 99999 99999\n\nOr reply with your Name and we will call you back.`
+    `📞 *AV DMC Sales & Operations Team*
+
+👤 *Shanky*
+🌴 Maldives Sales & Operations
+📱 +91 8527638777
+📧 shanky@avdmc.com
+
+👤 *Anshu*
+⚙️ Operations
+📱 +91 8796901097
+📧 maldives@avdmc.com
+
+👤 *Jitender Yadav*
+🌍 Mauritius • Singapore • Malaysia • Bali
+📱 +91 8130728100
+📧 query@avdmc.com
+
+👤 *Sakshi*
+🌏 Singapore • Malaysia Operations
+📱 +91 9453488908
+📧 ops@avdmc.com
+
+👤 *Kuldeep*
+🏔️ Europe • Baku
+📱 +91 9660915427
+📧 kuldeep@avdmc.com
+
+👤 *Pushkar*
+🏢 Delhi NCR Sales
+📱 +91 9643223032
+📧 sales@avdmc.com
+
+👤 *Jitender*
+⭐ Sales Manager
+📱 +91 9999384627
+📧 jitender@avdmc.com
+
+💬 *Reply with your destination or requirements, and our specialist will contact you shortly.*`
   );
 }
