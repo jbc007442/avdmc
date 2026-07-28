@@ -1,67 +1,3 @@
-// import { NextRequest, NextResponse } from 'next/server';
-
-// const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN!;
-
-// /**
-//  * Meta Verification
-//  */
-// export async function GET(req: NextRequest) {
-//   const searchParams = req.nextUrl.searchParams;
-
-//   const mode = searchParams.get('hub.mode');
-//   const token = searchParams.get('hub.verify_token');
-//   const challenge = searchParams.get('hub.challenge');
-
-//   if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-//     console.log('Webhook Verified');
-
-//     return new NextResponse(challenge, {
-//       status: 200,
-//     });
-//   }
-
-//   return NextResponse.json(
-//     {
-//       success: false,
-//       message: 'Verification failed',
-//     },
-//     { status: 403 }
-//   );
-// }
-
-// /**
-//  * Incoming Messages / Status Updates
-//  */
-// export async function POST(req: NextRequest) {
-//   try {
-//     const body = await req.json();
-
-//     console.log('Webhook Event', JSON.stringify(body, null, 2));
-
-//     /**
-//      * Save to MongoDB
-//      * Update message status
-//      * Handle incoming messages
-//      */
-
-//     return NextResponse.json(
-//       {
-//         success: true,
-//       },
-//       { status: 200 }
-//     );
-//   } catch (err) {
-//     console.error(err);
-
-//     return NextResponse.json(
-//       {
-//         success: false,
-//       },
-//       { status: 500 }
-//     );
-//   }
-// }
-
 import { NextRequest, NextResponse } from 'next/server';
 
 const VERIFY_TOKEN = process.env.WHATSAPP_VERIFY_TOKEN || 'avdmc_whatsapp_verify';
@@ -122,38 +58,162 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ ok: true });
 }
 
+// async function sendDestinationList(to: string) {
+//   const url = `https://graph.facebook.com/${VERSION}/${PHONE_ID}/messages`;
+//   const payload = {
+//     messaging_product: 'whatsapp',
+//     to,
+//     type: 'interactive',
+//     interactive: {
+//       type: 'list',
+//       header: { type: 'text', text: 'AV_DMC - DMC Experts' },
+//       body: { text: 'Hello! We are a DMC.\nChoose your destination:' },
+//       footer: { text: 'Select one to get best deals' },
+//       action: {
+//         button: 'Choose Destination',
+//         sections: [
+//           {
+//             title: 'Top',
+//             rows: [
+//               { id: 'maldives', title: 'Maldives', description: 'Island packages' },
+//               { id: 'singapore', title: 'Singapore', description: 'Family special' },
+//               { id: 'malaysia', title: 'Malaysia', description: 'Budget tours' },
+//             ],
+//           },
+//         ],
+//       },
+//     },
+//   };
+//   const res = await fetch(url, {
+//     method: 'POST',
+//     headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+//     body: JSON.stringify(payload),
+//   });
+//   console.log(await res.text());
+//   whatsappInbox.unshift({
+//     from: to,
+//     text: 'Sent: Destination List',
+//     direction: 'OUTGOING',
+//     time: new Date().toLocaleString(),
+//   });
+// }
+
 async function sendDestinationList(to: string) {
   const url = `https://graph.facebook.com/${VERSION}/${PHONE_ID}/messages`;
+
   const payload = {
     messaging_product: 'whatsapp',
     to,
     type: 'interactive',
     interactive: {
       type: 'list',
-      header: { type: 'text', text: 'AV_DMC - DMC Experts' },
-      body: { text: 'Hello! We are a DMC.\nChoose your destination:' },
-      footer: { text: 'Select one to get best deals' },
+      header: {
+        type: 'text',
+        text: '🌍 AV DMC - Destination Management Company',
+      },
+      body: {
+        text:
+          'Welcome to AV DMC!\n\n' +
+          'We provide B2B & B2C travel solutions across Asia, Europe, Indian Ocean and the Middle East.\n\n' +
+          'Please select your preferred destination.',
+      },
+      footer: {
+        text: '✈️ Hotels • Tours • Transfers • Visa • Activities',
+      },
       action: {
         button: 'Choose Destination',
         sections: [
           {
-            title: 'Top',
+            title: '🏝️ Island Destinations',
             rows: [
-              { id: 'maldives', title: 'Maldives', description: 'Island packages' },
-              { id: 'singapore', title: 'Singapore', description: 'Family special' },
-              { id: 'malaysia', title: 'Malaysia', description: 'Budget tours' },
+              {
+                id: 'destination_maldives',
+                title: '🇲🇻 Maldives',
+                description: 'Luxury Resorts • Honeymoon • Water Villas',
+              },
+              {
+                id: 'destination_mauritius',
+                title: '🇲🇺 Mauritius',
+                description: 'Family Holidays • Beaches • Adventure',
+              },
+              {
+                id: 'destination_bali',
+                title: '🇮🇩 Bali',
+                description: 'Honeymoon • Villas • Adventure',
+              },
+            ],
+          },
+          {
+            title: '🌏 South East Asia',
+            rows: [
+              {
+                id: 'destination_singapore',
+                title: '🇸🇬 Singapore',
+                description: 'Universal • Sentosa • City Tours',
+              },
+              {
+                id: 'destination_malaysia',
+                title: '🇲🇾 Malaysia',
+                description: 'Kuala Lumpur • Genting • Langkawi',
+              },
+              {
+                id: 'destination_thailand',
+                title: '🇹🇭 Thailand',
+                description: 'Bangkok • Phuket • Krabi • Pattaya',
+              },
+            ],
+          },
+          {
+            title: '🏜️ Middle East',
+            rows: [
+              {
+                id: 'destination_dubai',
+                title: '🇦🇪 Dubai',
+                description: 'Luxury • Desert Safari • Burj Khalifa',
+              },
+              {
+                id: 'destination_abu_dhabi',
+                title: '🇦🇪 Abu Dhabi',
+                description: 'Ferrari World • Yas Island',
+              },
+            ],
+          },
+          {
+            title: '🏔️ Other Popular Tours',
+            rows: [
+              {
+                id: 'destination_vietnam',
+                title: '🇻🇳 Vietnam',
+                description: 'Hanoi • Da Nang • Ho Chi Minh',
+              },
+              {
+                id: 'destination_srilanka',
+                title: '🇱🇰 Sri Lanka',
+                description: 'Nature • Wildlife • Beaches',
+              },
+              {
+                id: 'destination_nepal',
+                title: '🇳🇵 Nepal',
+                description: 'Kathmandu • Pokhara • Adventure',
+              },
             ],
           },
         ],
       },
     },
   };
+
   const res = await fetch(url, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify(payload),
   });
+
   console.log(await res.text());
+
   whatsappInbox.unshift({
     from: to,
     text: 'Sent: Destination List',
