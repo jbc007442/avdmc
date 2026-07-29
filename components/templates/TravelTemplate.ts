@@ -5,7 +5,7 @@ export function TravelTemplate() {
 
 <head>
 <meta charset="UTF-8">
-<title>Villa Nautica Maldives Offer</title>
+<title>Meyyafushi Maldives Offer</title>
 </head>
 
 <body style="margin:0;padding:0;background:#edf2f7;font-family:Arial,Helvetica,sans-serif;">
@@ -20,7 +20,7 @@ export function TravelTemplate() {
 <tr>
 <td>
 <img
-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYIgVjAYVDHgqudKBzJvNzS_i-m4AiN6iRZYhzabGkDw&s=10"
+src="https://www.officialtarun.in/avdmc/new.jpeg"
 width="650"
 style="display:block;width:100%;height:auto;">
 </td>
@@ -31,46 +31,17 @@ style="display:block;width:100%;height:auto;">
 <td style="padding:35px;text-align:center;">
 
 <h1 style="margin:0;color:#0b5ed7;font-size:34px;">
-🌴 Villa Nautica Maldives
+🌴 Meyyafushi Maldives
 </h1>
 
 <p style="font-size:18px;color:#666;margin-top:10px;">
-Transfers Free Offer
+Premium All Inclusive Offer
 </p>
 
 </td>
 </tr>
 
-<!-- Package 1 -->
-<tr>
-<td style="padding:0 35px 20px;">
-
-<table width="100%" cellpadding="15" cellspacing="0" style="background:#f7f9fc;border:1px solid #ddd;">
-
-<tr>
-<td>
-
-<h2 style="margin:0;color:#0b5ed7;">
-Starting from $966 PP*
-</h2>
-
-<p style="margin:15px 0 5px;"><b>Villa Nautica, Paradise Island</b></p>
-
-<ul style="padding-left:18px;line-height:28px;color:#444;">
-<li>4 Nights Deluxe Beach Pool Villa</li>
-<li>Full Board Plan</li>
-<li>Shared Speedboat Transfers</li>
-</ul>
-
-</td>
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-<!-- Package 2 -->
+<!-- Package -->
 
 <tr>
 <td style="padding:0 35px 30px;">
@@ -81,16 +52,19 @@ Starting from $966 PP*
 <td>
 
 <h2 style="margin:0;color:#0b5ed7;">
-Starting from $1038 PP*
+Starting from $2310 PP*
 </h2>
 
-<p style="margin:15px 0 5px;"><b>Villa Nautica, Paradise Island</b></p>
+<p style="margin:15px 0 5px;">
+<b>Meyyafushi Maldives</b>
+</p>
 
 <ul style="padding-left:18px;line-height:28px;color:#444;">
-<li>2 Nights Deluxe Beach Pool Villa</li>
-<li>2 Nights Water Villa</li>
-<li>Full Board Plan</li>
-<li>Shared Speedboat Transfers</li>
+<li>2 Nights Beach Pool Villa</li>
+<li>2 Nights Semi-Ocean Pool Villa</li>
+<li>Premium All Inclusive</li>
+<li>Shared Seaplane Transfers</li>
+<li><b>Bubble - The Under Water Restaurant Experience</b></li>
 </ul>
 
 </td>
@@ -101,37 +75,24 @@ Starting from $1038 PP*
 </td>
 </tr>
 
-<!-- Benefits -->
+<!-- Complimentary Benefits -->
 
 <tr>
 <td style="padding:0 35px;">
 
 <h2 style="color:#0b5ed7;">
-Offer Benefits
+Complimentary Benefits
 </h2>
 
 <ul style="line-height:30px;color:#555;padding-left:20px;">
-<li>🚤 Dolphin / Sunset Cruise</li>
-<li>📸 30 Minute Photoshoot with 1 Printed Photo</li>
-<li>🤿 Complimentary Snorkeling Gear</li>
-<li>🛶 30 Minute Kayak / SUP Session</li>
-</ul>
-
-</td>
-</tr>
-
-<!-- Additional Benefits -->
-
-<tr>
-<td style="padding:20px 35px;">
-
-<h2 style="color:#0b5ed7;">
-AI Plan Benefits
-</h2>
-
-<ul style="line-height:30px;color:#555;padding-left:20px;">
-<li>🍽 Ala Carte Lunch Once</li>
-<li>💆 $100 Spa Credit for 2 Guests</li>
+<li>✔️ 1 Excursion (Snorkelling / Sunset Cruise / Dolphin Cruise / Fishing Cruise)</li>
+<li>✔️ Thali Meal Experience</li>
+<li>✔️ 15 Min Photo Shoot with 1-2 Copies</li>
+<li>✔️ 1 Bottle of Whiskey as Welcome Gift</li>
+<li>✔️ 45 Min Massage for 2</li>
+<li>✔️ Snorkelling Gear & Non-Motorized Water Sports</li>
+<li>✔️ Catamaran Sailing Experience</li>
+<li>✔️ & More...</li>
 </ul>
 
 </td>
@@ -140,21 +101,18 @@ AI Plan Benefits
 <!-- Notes -->
 
 <tr>
-<td style="padding:0 35px 20px;">
+<td style="padding:20px 35px 20px;">
 
 <table width="100%" cellpadding="12" cellspacing="0" style="background:#fff8e6;border:1px solid #f5d66b;">
 
 <tr>
 <td>
 
-<b>Important Notes</b>
+<b>Book Now</b>
 
 <ul style="line-height:28px;padding-left:18px;">
-<li>Transfer Free Offer Available till 31 Oct 2026</li>
-<li>Offer Valid on Pool + Water Villas</li>
-<li>Minimum Stay: 4 Nights</li>
-<li>Book Before: 31 Jul 2026</li>
-<li>Travel Till: 31 Jul 2026</li>
+<li>Travel Till: 30th Sep</li>
+<li>3N Min Stay Offer</li>
 </ul>
 
 </td>
@@ -166,7 +124,6 @@ AI Plan Benefits
 </tr>
 
 <!-- CTA -->
-
 <!-- CTA Buttons -->
 
 <tr>
@@ -285,6 +242,163 @@ display:inline-block;
 </table>
 
 </td>
+</tr>
+
+<!-- Team Heading -->
+
+<tr>
+
+<td
+style="
+padding:15px 35px;
+text-align:center;
+">
+
+<h2
+style="
+margin:0;
+color:#0b5ed7;
+font-size:30px;
+">
+
+👥 Team AVDMC
+
+</h2>
+
+<p
+style="
+margin-top:10px;
+font-size:17px;
+color:#555;
+">
+
+Best Deals on Maldives • Mauritius • Singapore • Malaysia • Bali • Baku • Europe • Australia
+
+</p>
+
+</td>
+
+</tr>
+
+<!-- Team Contacts -->
+
+<tr>
+
+<td style="padding:0 35px 35px;">
+
+<table
+width="100%"
+cellpadding="14"
+cellspacing="0"
+style="
+border:1px solid #e5e7eb;
+background:#fafafa;
+">
+
+<tr>
+
+<td>
+
+<b>📱 Shanky</b><br>
+8527638777<br>
+📧 shanky@avdmc.com<br>
+Maldives Sales & Ops
+
+</td>
+
+<td>
+
+<b>📱 Anshu</b><br>
+8796901097<br>
+📧 maldives@avdmc.com<br>
+Operations
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<b>📱 Jitender Yadav</b><br>
+8130728100<br>
+📧 query@avdmc.com<br>
+Mauritius • Singapore • Malaysia • Bali
+
+</td>
+
+<td>
+
+<b>📱 Sakshi</b><br>
+9453488908<br>
+📧 ops@avdmc.com<br>
+Singapore • Malaysia
+
+</td>
+
+</tr>
+<tr>
+
+<td>
+
+<b>📱 Yogesh</b><br>
+9930422354<br>
+📧 yogesh@avdmc.com<br>
+West India Sales
+
+</td>
+
+<td>
+
+<b>📱 Sakshi</b><br>
+9453488908<br>
+📧 ops@avdmc.com<br>
+Singapore • Malaysia
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<b>📱 Kuldeep</b><br>
+9660915427<br>
+📧 kuldeep@avdmc.com<br>
+Europe • Baku
+
+</td>
+
+<td>
+
+<b>📱 Pushkar</b><br>
+9643223032<br>
+📧 sales@avdmc.com<br>
+Delhi NCR Sales
+
+</td>
+
+</tr>
+
+<tr>
+
+<td colspan="2">
+
+<b>📱 Jitender</b><br>
+9999384627<br>
+📧 jitender@avdmc.com<br>
+PAN India Sales
+
+</td>
+
+</tr>
+
+</table>
+
+</td>
+
 </tr>
 
 <!-- Footer -->
