@@ -6,16 +6,16 @@
 // const VERSION = process.env.WHATSAPP_API_VERSION || 'v21.0';
 // const GRAPH_URL = `https://graph.facebook.com/${VERSION}/${PHONE_ID}/messages`;
 
+// const SALES_NUMBER = '919999384627';
+// const LOGO_IMAGE_LINK =
+//   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhn9uewgi-MHiPy8MQxpO4GmfuWCa9s6rd7bKf5TFY6w&s=10';
+
+// export const runtime = 'nodejs';
+
 // export const whatsappInbox: any[] = (global as any).whatsappInbox || [];
 // (global as any).whatsappInbox = whatsappInbox;
 
-// type UserSession = {
-//   step: string;
-//   destination?: string;
-//   name?: string;
-//   email?: string;
-// };
-
+// type UserSession = { step: string; destination?: string; name?: string; email?: string };
 // const sessions: Record<string, UserSession> = (global as any).whatsappSessions || {};
 // (global as any).whatsappSessions = sessions;
 
@@ -40,12 +40,26 @@
 // export async function POST(req: NextRequest) {
 //   const body = await req.json();
 //   const value = body.entry?.[0]?.changes?.[0]?.value;
+//   const field = body.entry?.[0]?.changes?.[0]?.field;
+
+//   if (field === 'user_preferences' && value?.user_preferences) {
+//     for (let pref of value.user_preferences) {
+//       whatsappInbox.unshift({
+//         from: pref.from,
+//         text: `PREFERENCE: ${pref.preference}`,
+//         direction: 'STATUS',
+//         time: new Date().toLocaleString(),
+//       });
+//     }
+//     return NextResponse.json({ success: true });
+//   }
 
 //   if (value?.statuses) {
 //     const s = value.statuses[0];
+//     const error = s.errors?.[0];
 //     whatsappInbox.unshift({
 //       from: s.recipient_id,
-//       text: `STATUS: ${s.status}`,
+//       text: `STATUS: ${s.status} ${error ? `| ERROR ${error.code}: ${error.title}` : ''}`,
 //       direction: 'STATUS',
 //       time: new Date().toLocaleString(),
 //     });
@@ -56,10 +70,19 @@
 //   if (!message) return NextResponse.json({ success: true });
 
 //   const from = message.from;
+
+//   // Don't track if message is FROM sales number itself
+//   if (from === SALES_NUMBER) {
+//     return NextResponse.json({ success: true });
+//   }
+
 //   const session = getSession(from);
-//   const text = message.text?.body?.trim().toLowerCase() || '';
+//   const text = message.text?.body?.trim() || '';
+//   const textLower = text.toLowerCase();
 //   const selectedId =
 //     message.interactive?.button_reply?.id ?? message.interactive?.list_reply?.id ?? '';
+//   const selectedTitle =
+//     message.interactive?.button_reply?.title ?? message.interactive?.list_reply?.title ?? '';
 
 //   whatsappInbox.unshift({
 //     from,
@@ -68,7 +91,15 @@
 //     time: new Date().toLocaleString(),
 //   });
 
-//   if (['hi', 'hello', 'hey', 'menu', 'start'].includes(text)) {
+//   // === REDIRECT EVERY MESSAGE TO YOUR NUMBER ===
+//   if (text || selectedId) {
+//     const activity = selectedId ? `Button: ${selectedId} (${selectedTitle})` : `Message: ${text}`;
+//     await notifySales(
+//       `👤 User: +${from}\n${activity}\nStep: ${session.step}\nDest: ${session.destination || 'N/A'}`
+//     );
+//   }
+
+//   if (['hi', 'hello', 'hey', 'menu', 'start'].includes(textLower)) {
 //     resetSession(from);
 //     await sendWelcomeButtons(from);
 //     return NextResponse.json({ success: true });
@@ -79,7 +110,6 @@
 // }
 
 // async function handleSelection(from: string, session: UserSession, id: string, text: string) {
-//   // MAIN MENU
 //   if (id === 'destination_menu') {
 //     session.step = 'DESTINATION';
 //     await sendDestinationList(from);
@@ -92,25 +122,24 @@
 //   }
 //   if (id === 'contact_sales') {
 //     await sendSalesContact(from);
+//     await notifySales(`🔥 User +${from} wants to TALK TO SALES - Redirecting to you!`);
 //     return;
 //   }
-
-//   // DESTINATION SELECTED
 //   if (['maldives', 'singapore', 'malaysia', 'bali', 'thailand', 'dubai'].includes(id)) {
 //     session.destination = id;
 //     session.step = 'ASK_NAME';
 //     await sendTextMessage(
 //       from,
-//       `Great! You selected *${id.toUpperCase()}* ✈️\n\nPlease share your Name to get best package.`
+//       `Great! You selected *${id.toUpperCase()}* ✈\n\nPlease share your Name to get best package.`
 //     );
+//     await notifySales(`✈ User +${from} selected DESTINATION: ${id.toUpperCase()}`);
 //     return;
 //   }
-
-//   // FORM FLOW
 //   if (session.step === 'ASK_NAME') {
 //     session.name = text;
 //     session.step = 'ASK_EMAIL';
 //     await sendTextMessage(from, `Thanks ${session.name} 🙏\n📧 Please enter your email.`);
+//     await notifySales(`📝 User +${from} Name: ${text} | Dest: ${session.destination}`);
 //     return;
 //   }
 //   if (session.step === 'ASK_EMAIL') {
@@ -118,19 +147,31 @@
 //     session.step = 'COMPLETE';
 //     await sendTextMessage(
 //       from,
-//       `✅ Thank you ${session.name}.\n\nOur expert for ${session.destination?.toUpperCase()} will contact you shortly at ${session.email}.\n\nPlease share:\n1. Travel Date\n2. No. of Guests`
+//       `✅ Thank you ${session.name}.\n\nOur expert for ${session.destination?.toUpperCase()} will contact you shortly at ${session.email}.\n\nWe will also notify our Sales Manager Jitender (+91 9999384627).`
+//     );
+//     // FINAL LEAD TO YOU
+//     await notifySales(
+//       `🔥🔥🔥 NEW LEAD FROM BOT 🔥🔥🔥\nName: ${session.name}\nEmail: ${text}\nDest: ${session.destination}\nFrom: +${from}\n\nCall him now!`
 //     );
 //     resetSession(from);
 //     return;
 //   }
-
-//   // FALLBACK
-//   if (!id) {
-//     await sendWelcomeButtons(from);
-//   }
+//   if (!id) await sendWelcomeButtons(from);
 // }
 
-// /* ------- SEND HELPERS ------- */
+// // === SEND TO YOUR PERSONAL NUMBER ===
+// async function notifySales(body: string) {
+//   try {
+//     await sendWhatsApp({
+//       messaging_product: 'whatsapp',
+//       to: SALES_NUMBER,
+//       type: 'text',
+//       text: { body },
+//     });
+//   } catch (e) {
+//     console.log('Failed to notify sales', e);
+//   }
+// }
 
 // async function sendWhatsApp(payload: any) {
 //   const res = await fetch(GRAPH_URL, {
@@ -160,23 +201,17 @@
 //     type: 'interactive',
 //     interactive: {
 //       type: 'button',
-//       header: { type: 'text', text: 'AV DMC - DMC Experts' },
-//       body: { text: 'Hello! 👋 Welcome to AV DMC.\n\nHow can we help you today?' },
-//       footer: { text: 'Choose an option' },
+//       header: { type: 'image', image: { link: LOGO_IMAGE_LINK } },
+//       body: { text: 'Hello! 👋 Welcome to *AV DMC - DMC Experts*.\n\nHow can we help you today?' },
+//       footer: { text: 'Trusted by 500+ Travel Partners' },
 //       action: {
 //         buttons: [
 //           { type: 'reply', reply: { id: 'destination_menu', title: '🌍 Destinations' } },
-//           { type: 'reply', reply: { id: 'service_menu', title: '🛎️ Our Services' } },
+//           { type: 'reply', reply: { id: 'service_menu', title: '🛎 Services' } },
 //           { type: 'reply', reply: { id: 'contact_sales', title: '📞 Talk to Expert' } },
 //         ],
 //       },
 //     },
-//   });
-//   whatsappInbox.unshift({
-//     from: to,
-//     text: 'Sent: Welcome Buttons',
-//     direction: 'OUTGOING',
-//     time: new Date().toLocaleString(),
 //   });
 // }
 
@@ -238,47 +273,39 @@
 // }
 
 // async function sendSalesContact(to: string) {
-//   await sendTextMessage(
+//   await sendWhatsApp({
+//     messaging_product: 'whatsapp',
 //     to,
-//     `📞 *AV DMC Sales & Operations Team*
+//     type: 'interactive',
+//     interactive: {
+//       type: 'button',
+//       header: { type: 'text', text: 'Connect with Sales Manager' },
+//       body: {
+//         text: `📞 *AV DMC Sales Team*\n\n👤 *Jitender Yadav - Sales Manager*\n📱 +91 9999384627\n\nTap below to chat directly on his personal WhatsApp.`,
+//       },
+//       footer: { text: 'AV DMC' },
+//       action: {
+//         buttons: [{ type: 'reply', reply: { id: 'destination_menu', title: '🌍 View Packages' } }],
+//       },
+//     },
+//   });
 
-// 👤 *Shanky*
-// 🌴 Maldives Sales & Operations
-// 📱 +91 8527638777
-// 📧 shanky@avdmc.com
-
-// 👤 *Anshu*
-// ⚙️ Operations
-// 📱 +91 8796901097
-// 📧 maldives@avdmc.com
-
-// 👤 *Jitender Yadav*
-// 🌍 Mauritius • Singapore • Malaysia • Bali
-// 📱 +91 8130728100
-// 📧 query@avdmc.com
-
-// 👤 *Sakshi*
-// 🌏 Singapore • Malaysia Operations
-// 📱 +91 9453488908
-// 📧 ops@avdmc.com
-
-// 👤 *Kuldeep*
-// 🏔️ Europe • Baku
-// 📱 +91 9660915427
-// 📧 kuldeep@avdmc.com
-
-// 👤 *Pushkar*
-// 🏢 Delhi NCR Sales
-// 📱 +91 9643223032
-// 📧 sales@avdmc.com
-
-// 👤 *Jitender*
-// ⭐ Sales Manager
-// 📱 +91 9999384627
-// 📧 jitender@avdmc.com
-
-// 💬 *Reply with your destination or requirements, and our specialist will contact you shortly.*`
-//   );
+//   await sendWhatsApp({
+//     messaging_product: 'whatsapp',
+//     to,
+//     type: 'interactive',
+//     interactive: {
+//       type: 'cta_url',
+//       body: { text: 'Click below to start chat with Jitender on his personal number.' },
+//       action: {
+//         name: 'cta_url',
+//         parameters: {
+//           display_text: '💬 Chat on +91 9999384627',
+//           url: `https://wa.me/${SALES_NUMBER}?text=Hi%20Jitender,%20I%20got%20your%20number%20from%20AV%20DMC%20Bot`,
+//         },
+//       },
+//     },
+//   });
 // }
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -290,11 +317,9 @@ const VERSION = process.env.WHATSAPP_API_VERSION || 'v21.0';
 const GRAPH_URL = `https://graph.facebook.com/${VERSION}/${PHONE_ID}/messages`;
 
 const SALES_NUMBER = '919999384627';
-const LOGO_IMAGE_LINK =
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhn9uewgi-MHiPy8MQxpO4GmfuWCa9s6rd7bKf5TFY6w&s=10';
+const LOGO_IMAGE_LINK = 'https://yourdomain.com/avdmc-logo.jpg';
 
 export const runtime = 'nodejs';
-
 export const whatsappInbox: any[] = (global as any).whatsappInbox || [];
 (global as any).whatsappInbox = whatsappInbox;
 
@@ -325,64 +350,26 @@ export async function POST(req: NextRequest) {
   const value = body.entry?.[0]?.changes?.[0]?.value;
   const field = body.entry?.[0]?.changes?.[0]?.field;
 
-  if (field === 'user_preferences' && value?.user_preferences) {
-    for (let pref of value.user_preferences) {
-      whatsappInbox.unshift({
-        from: pref.from,
-        text: `PREFERENCE: ${pref.preference}`,
-        direction: 'STATUS',
-        time: new Date().toLocaleString(),
-      });
-    }
-    return NextResponse.json({ success: true });
-  }
-
-  if (value?.statuses) {
-    const s = value.statuses[0];
-    const error = s.errors?.[0];
-    whatsappInbox.unshift({
-      from: s.recipient_id,
-      text: `STATUS: ${s.status} ${error ? `| ERROR ${error.code}: ${error.title}` : ''}`,
-      direction: 'STATUS',
-      time: new Date().toLocaleString(),
-    });
-    return NextResponse.json({ success: true });
-  }
+  if (field === 'user_preferences') return NextResponse.json({ success: true });
+  if (value?.statuses) return NextResponse.json({ success: true });
 
   const message = value?.messages?.[0];
   if (!message) return NextResponse.json({ success: true });
 
   const from = message.from;
-
-  // Don't track if message is FROM sales number itself
-  if (from === SALES_NUMBER) {
-    return NextResponse.json({ success: true });
-  }
+  if (from === SALES_NUMBER) return NextResponse.json({ success: true });
 
   const session = getSession(from);
   const text = message.text?.body?.trim() || '';
-  const textLower = text.toLowerCase();
   const selectedId =
     message.interactive?.button_reply?.id ?? message.interactive?.list_reply?.id ?? '';
-  const selectedTitle =
-    message.interactive?.button_reply?.title ?? message.interactive?.list_reply?.title ?? '';
 
-  whatsappInbox.unshift({
-    from,
-    text: text || selectedId,
-    direction: 'INCOMING',
-    time: new Date().toLocaleString(),
-  });
-
-  // === REDIRECT EVERY MESSAGE TO YOUR NUMBER ===
+  // === 1. SILENT FORWARD EVERY OLD MESSAGE TO YOUR PERSONAL NUMBER ===
   if (text || selectedId) {
-    const activity = selectedId ? `Button: ${selectedId} (${selectedTitle})` : `Message: ${text}`;
-    await notifySales(
-      `👤 User: +${from}\n${activity}\nStep: ${session.step}\nDest: ${session.destination || 'N/A'}`
-    );
+    await forwardToPersonal(from, text, selectedId, session);
   }
 
-  if (['hi', 'hello', 'hey', 'menu', 'start'].includes(textLower)) {
+  if (['hi', 'hello', 'hey', 'menu', 'start'].includes(text.toLowerCase())) {
     resetSession(from);
     await sendWelcomeButtons(from);
     return NextResponse.json({ success: true });
@@ -394,66 +381,107 @@ export async function POST(req: NextRequest) {
 
 async function handleSelection(from: string, session: UserSession, id: string, text: string) {
   if (id === 'destination_menu') {
-    session.step = 'DESTINATION';
     await sendDestinationList(from);
     return;
   }
   if (id === 'service_menu') {
-    session.step = 'SERVICES';
     await sendServiceList(from);
     return;
   }
   if (id === 'contact_sales') {
     await sendSalesContact(from);
-    await notifySales(`🔥 User +${from} wants to TALK TO SALES - Redirecting to you!`);
     return;
   }
+
   if (['maldives', 'singapore', 'malaysia', 'bali', 'thailand', 'dubai'].includes(id)) {
     session.destination = id;
     session.step = 'ASK_NAME';
     await sendTextMessage(
       from,
-      `Great! You selected *${id.toUpperCase()}* ✈\n\nPlease share your Name to get best package.`
+      `Great! You selected *${id.toUpperCase()}* ✈\n\nPlease share your Name.`
     );
-    await notifySales(`✈ User +${from} selected DESTINATION: ${id.toUpperCase()}`);
     return;
   }
   if (session.step === 'ASK_NAME') {
     session.name = text;
     session.step = 'ASK_EMAIL';
     await sendTextMessage(from, `Thanks ${session.name} 🙏\n📧 Please enter your email.`);
-    await notifySales(`📝 User +${from} Name: ${text} | Dest: ${session.destination}`);
     return;
   }
   if (session.step === 'ASK_EMAIL') {
     session.email = text;
-    session.step = 'COMPLETE';
     await sendTextMessage(
       from,
-      `✅ Thank you ${session.name}.\n\nOur expert for ${session.destination?.toUpperCase()} will contact you shortly at ${session.email}.\n\nWe will also notify our Sales Manager Jitender (+91 9999384627).`
+      `✅ Thank you ${session.name}. Our expert will contact you shortly.`
     );
-    // FINAL LEAD TO YOU
-    await notifySales(
-      `🔥🔥🔥 NEW LEAD FROM BOT 🔥🔥🔥\nName: ${session.name}\nEmail: ${text}\nDest: ${session.destination}\nFrom: +${from}\n\nCall him now!`
+
+    // FINAL LEAD - Forward to your personal number
+    await sendToPersonal(
+      `🔥 NEW LEAD\nName: ${session.name}\nEmail: ${text}\nDest: ${session.destination}\nFrom: +${from}`
+    );
+
+    // CTA REDIRECT to your personal number
+    await createCtaButton(
+      from,
+      'Chat directly with Jitender for best deal:',
+      '💬 Chat on 9999384627',
+      `Hi Jitender, Name: ${session.name}, Email: ${text}, Dest: ${session.destination}`
     );
     resetSession(from);
     return;
   }
-  if (!id) await sendWelcomeButtons(from);
+  await sendWelcomeButtons(from);
 }
 
-// === SEND TO YOUR PERSONAL NUMBER ===
-async function notifySales(body: string) {
+// ====== FORWARD LOGIC ======
+async function forwardToPersonal(
+  from: string,
+  text: string,
+  buttonId: string,
+  session: UserSession
+) {
+  const content = buttonId ? `Clicked: ${buttonId}` : `Msg: ${text}`;
+  const msg = `👤 +${from}\n${content}\nStep: ${session.step}\nDest: ${session.destination || '-'}`;
+  await sendToPersonal(msg);
+}
+
+async function sendToPersonal(body: string) {
   try {
-    await sendWhatsApp({
-      messaging_product: 'whatsapp',
-      to: SALES_NUMBER,
-      type: 'text',
-      text: { body },
+    const res = await fetch(GRAPH_URL, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messaging_product: 'whatsapp',
+        to: SALES_NUMBER,
+        type: 'text',
+        text: { body: body.substring(0, 4000) },
+      }),
     });
+    const json = await res.json();
+    console.log('FORWARD TO PERSONAL:', JSON.stringify(json));
+    if (json.error) {
+      console.log(
+        '!!! Forward failed - You need to message your Business Number from 9999384627 once to open 24h window'
+      );
+    }
   } catch (e) {
-    console.log('Failed to notify sales', e);
+    console.log(e);
   }
+}
+
+// ====== CTA BUTTON CREATOR - REDIRECT TO 9999384627 ======
+async function createCtaButton(to: string, bodyText: string, btnText: string, waMsg: string) {
+  const url = `https://wa.me/${SALES_NUMBER}?text=${encodeURIComponent(waMsg)}`;
+  return sendWhatsApp({
+    messaging_product: 'whatsapp',
+    to,
+    type: 'interactive',
+    interactive: {
+      type: 'cta_url',
+      body: { text: bodyText },
+      action: { name: 'cta_url', parameters: { display_text: btnText, url } },
+    },
+  });
 }
 
 async function sendWhatsApp(payload: any) {
@@ -462,19 +490,11 @@ async function sendWhatsApp(payload: any) {
     headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   });
-  const json = await res.json();
-  console.log('WHATSAPP RES:', JSON.stringify(json));
-  return json;
+  return res.json();
 }
 
 async function sendTextMessage(to: string, text: string) {
   await sendWhatsApp({ messaging_product: 'whatsapp', to, type: 'text', text: { body: text } });
-  whatsappInbox.unshift({
-    from: to,
-    text,
-    direction: 'OUTGOING',
-    time: new Date().toLocaleString(),
-  });
 }
 
 async function sendWelcomeButtons(to: string) {
@@ -496,6 +516,12 @@ async function sendWelcomeButtons(to: string) {
       },
     },
   });
+  await createCtaButton(
+    to,
+    'Or chat directly on my personal WhatsApp:',
+    '💬 Chat on 9999384627',
+    'Hi Jitender, I came from AV DMC Bot'
+  );
 }
 
 async function sendDestinationList(to: string) {
@@ -506,7 +532,7 @@ async function sendDestinationList(to: string) {
     interactive: {
       type: 'list',
       header: { type: 'text', text: 'Top Destinations' },
-      body: { text: 'Please choose your preferred destination:' },
+      body: { text: 'Choose your destination:' },
       footer: { text: 'AV DMC' },
       action: {
         button: 'Choose Destination',
@@ -556,37 +582,10 @@ async function sendServiceList(to: string) {
 }
 
 async function sendSalesContact(to: string) {
-  await sendWhatsApp({
-    messaging_product: 'whatsapp',
+  await createCtaButton(
     to,
-    type: 'interactive',
-    interactive: {
-      type: 'button',
-      header: { type: 'text', text: 'Connect with Sales Manager' },
-      body: {
-        text: `📞 *AV DMC Sales Team*\n\n👤 *Jitender Yadav - Sales Manager*\n📱 +91 9999384627\n\nTap below to chat directly on his personal WhatsApp.`,
-      },
-      footer: { text: 'AV DMC' },
-      action: {
-        buttons: [{ type: 'reply', reply: { id: 'destination_menu', title: '🌍 View Packages' } }],
-      },
-    },
-  });
-
-  await sendWhatsApp({
-    messaging_product: 'whatsapp',
-    to,
-    type: 'interactive',
-    interactive: {
-      type: 'cta_url',
-      body: { text: 'Click below to start chat with Jitender on his personal number.' },
-      action: {
-        name: 'cta_url',
-        parameters: {
-          display_text: '💬 Chat on +91 9999384627',
-          url: `https://wa.me/${SALES_NUMBER}?text=Hi%20Jitender,%20I%20got%20your%20number%20from%20AV%20DMC%20Bot`,
-        },
-      },
-    },
-  });
+    `📞 *AV DMC Sales Team*\n\n👤 *Jitender Yadav*\n📱 +91 9999384627\n\nTap below to chat directly.`,
+    '💬 Chat on +91 9999384627',
+    'Hi Jitender, I need help with packages'
+  );
 }
