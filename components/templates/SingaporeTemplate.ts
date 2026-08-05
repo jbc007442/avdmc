@@ -23,7 +23,7 @@ style="background:#ffffff;border-radius:12px;overflow:hidden;">
 <td>
 
 <img
-src="https://www.officialtarun.in/avdmc/singapore.jpeg"
+src="https://www.officialtarun.in/avdmc/pool.jpeg"
 width="650"
 style="display:block;width:100%;height:auto;">
 

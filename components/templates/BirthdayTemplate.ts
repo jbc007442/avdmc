@@ -110,7 +110,7 @@ text-align:center;
 >
 
 <a
-href="https://avdmc.com"
+href="https://officialtarun.in/avdmc/pool.jpeg"
 style="
 display:inline-block;
 padding:14px 35px;
