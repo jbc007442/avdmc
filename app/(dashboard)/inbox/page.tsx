@@ -143,6 +143,27 @@ export default function InboxPage() {
   // Group Messages
   //-------------------------------------------------------
 
+  // const chats = useMemo(() => {
+  //   const map: Record<string, Message[]> = {};
+
+  //   messages.forEach((msg) => {
+  //     if (!map[msg.from]) map[msg.from] = [];
+  //     map[msg.from].push(msg);
+  //   });
+
+  //   return Object.entries(map)
+  //     .map(([number, msgs]) => ({
+  //       number,
+  //       messages: msgs,
+  //       lastMessage: msgs[msgs.length - 1],
+  //       unread: msgs.filter((x) => x.direction === 'INCOMING').length,
+  //     }))
+  //     .sort(
+  //       (a, b) =>
+  //         new Date(b.lastMessage.createdAt).getTime() - new Date(a.lastMessage.createdAt).getTime()
+  //     );
+  // }, [messages]);
+
   const chats = useMemo(() => {
     const map: Record<string, Message[]> = {};
 
@@ -152,12 +173,17 @@ export default function InboxPage() {
     });
 
     return Object.entries(map)
-      .map(([number, msgs]) => ({
-        number,
-        messages: msgs,
-        lastMessage: msgs[msgs.length - 1],
-        unread: msgs.filter((x) => x.direction === 'INCOMING').length,
-      }))
+      .map(([number, msgs]) => {
+        // Ensure messages are in time order
+        msgs.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+        return {
+          number,
+          messages: msgs,
+          lastMessage: msgs[msgs.length - 1],
+          unread: msgs.filter((m) => m.direction === 'INCOMING').length,
+        };
+      })
       .sort(
         (a, b) =>
           new Date(b.lastMessage.createdAt).getTime() - new Date(a.lastMessage.createdAt).getTime()
