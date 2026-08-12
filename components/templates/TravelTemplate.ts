@@ -1,422 +1,1239 @@
 export function TravelTemplate() {
   return `
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Atmosphere Kanifushi Maldives | Luxury Escape | AV DMC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Villa Nautica Maldives - Limited Offer</title>
 </head>
 
-<body style="margin:0;padding:0;background:#edf2f7;font-family:Arial,Helvetica,sans-serif;">
-
-<table width="100%" cellpadding="0" cellspacing="0" style="padding:30px 0;background:#edf2f7;">
-<tr>
-<td align="center">
-
-<table width="650" cellpadding="0" cellspacing="0"
-style="background:#ffffff;border-radius:12px;overflow:hidden;">
-
-<!-- Banner -->
-<tr>
-<td>
-
-<img
-src="https://www.officialtarun.in/avdmc/atmos.jpeg"
-width="650"
-style="display:block;width:100%;height:auto;">
-
-</td>
-</tr>
-
-<!-- Heading -->
-<tr>
-<td style="padding:35px;text-align:center;">
-
-<h1 style="margin:0;color:#0b5ed7;font-size:34px;">
-🌴 Maldives Luxury Escape
-</h1>
-
-<p style="font-size:26px;color:#15803d;margin-top:12px;font-weight:bold;">
-Atmosphere Kanifushi Maldives
-</p>
-
-<p style="font-size:20px;color:#8b4513;margin-top:8px;">
-Experience a Premium All-Inclusive Holiday in the Maldives
-</p>
-
-</td>
-</tr>
-
-<!-- Package -->
-<tr>
-<td style="padding:0 35px 25px;">
-
-<table width="100%" cellpadding="15" cellspacing="0"
-style="border:1px solid #dbeafe;background:#f8fbff;border-radius:8px;">
-
-<tr>
-
-<td>
-
-<h2 style="margin:0;color:#0b5ed7;">
-🏝️ Luxury Package
-</h2>
-
-<p style="margin:18px 0 10px;font-size:24px;font-weight:bold;color:#111827;">
-
-Starting From:
-
-<span style="color:#15803d;">
-USD 1,315 PP
-</span>
-
-</p>
-
-<ul style="padding-left:20px;line-height:32px;color:#444;">
-
-<li><b>2 Nights Sunset Beach Villa</b></li>
-
-<li><b>2 Nights Water Villa</b></li>
-
-<li>Premium All-Inclusive (AI) Meal Plan</li>
-
-<li>Shared Seaplane Transfers</li>
-
-</ul>
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-<!-- Exclusive Benefits -->
-<tr>
-<td style="padding:0 35px 25px;">
-
-<table width="100%" cellpadding="15" cellspacing="0"
-style="background:#eef8ff;border:1px solid #9ecbff;border-radius:8px;">
-
-<tr>
-
-<td>
-
-<h2 style="margin:0;color:#0b5ed7;font-size:24px;">
-🎁 Exclusive Offer Benefits
-</h2>
-
-<ul style="line-height:30px;padding-left:20px;margin-top:15px;color:#444;">
-
-<li>🌊 Seaplane Lounge Access</li>
-
-<li>💆 45-Minute Spa Treatment</li>
-
-<li>🍹 In-Villa Mini Bar Refilled Daily</li>
-
-<li>🎣 Sunset Fishing Excursion (Once)</li>
-
-<li>🏝️ Local Island Excursion (Once)</li>
-
-<li>🌅 Complimentary Sunset Cruise</li>
-
-<li>👨‍👩‍👧‍👦 Kids Club & Clubhouse Access</li>
-
-<li>🚣 Complimentary Non-Motorized Water Sports</li>
-
-<li>🍽️ Signature Fine Dining Experience</li>
-
-<li>✨ Multiple Specialty Dining Venues Included</li>
-
-</ul>
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-<!-- Booking Details -->
-<tr>
-<td style="padding:0 35px 30px;">
-
-<table width="100%" cellpadding="15" cellspacing="0"
-style="background:#fff8e6;border:1px solid #f6d365;border-radius:8px;">
-
-<tr>
-
-<td>
-
-<h2 style="margin:0;color:#b45309;font-size:24px;">
-📋 Booking Details
-</h2>
-
-<ul style="line-height:30px;padding-left:20px;margin-top:15px;color:#444;">
-
-<li>📅 <b>Book Before: 30th September</b></li>
-
-<li>✈️ <b>Travel Till: 30th September</b></li>
-
-<li>🌴 <b>Minimum Stay: 4 Nights</b></li>
-
-<li>Subject to Availability & Weather Conditions.</li>
-
-</ul>
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-<!-- Contact -->
-<tr>
-<td style="padding:0 35px 20px;">
-
-<table width="100%" cellpadding="12" cellspacing="0"
-style="background:#fff8e6;border:1px solid #f5d66b;border-radius:8px;">
-
-<tr>
-<td>
-
-<h2 style="margin:0;color:#b45309;font-size:24px;">
-📞 Contact Our Maldives Experts
-</h2>
+<body style="
+  margin:0;
+  padding:0;
+  background:#f3f7fb;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#222;
+  line-height:1.5;
+">
 
 <table
-width="100%"
-cellpadding="14"
-cellspacing="0"
-style="border:1px solid #e5e7eb;background:#fafafa;">
-
-<tr>
-
-<td>
-<b>📱 Kuldeep Singhal</b><br>
-+91 9660915427<br>
-📧 kuldeep@avdmc.com<br>
-Europe Sales
-</td>
-
-<td>
-<b>📱 Yogesh Gohil</b><br>
-+91 9930422354<br>
-📧 yogesh@avdmc.com<br>
-West Region
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-<b>📱 Pushkar Kandel</b><br>
-+91 9643223032<br>
-Delhi NCR Sales
-</td>
-
-<td>
-<b>📱 Shanky Saxena</b><br>
-+91 8527638777<br>
-📧 shanky@avdmc.com<br>
-Maldives Sales
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-<b>📱 Amit Dubey</b><br>
-+91 9968346844
-</td>
-
-<td>
-<b>📱 Jitendra Yadav</b><br>
-+91 8130728100<br>
-📧 query@avdmc.com
-</td>
-
-</tr>
-
-<tr>
-
-<td>
-<b>📱 Sakshi Tripathi</b><br>
-+91 9453488908<br>
-📧 ops@avdmc.com
-</td>
-
-<td>
-<b>📱 Anshu Kabira</b><br>
-+91 8796901097<br>
-📧 maldives@avdmc.com
-</td>
-
-</tr>
-
-<tr>
-
-<td colspan="2" align="center">
-
-<b style="font-size:20px;">📱 Jitender Chaudhary</b><br>
-
-+91 9999384627<br>
-
-📧 jitender@avdmc.com
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-<!-- CTA -->
-<tr>
-<td align="center" style="padding:30px;">
-
-<h2 style="margin:0 0 25px;color:#ff7a00;">
-🌴 Book Your Luxury Maldives Escape Today
-</h2>
-
-<table cellpadding="0" cellspacing="0" border="0">
-
-<tr>
-
-<td style="padding:8px;">
-
-<a
-href="tel:+919999384627"
-style="
-background:#2563eb;
-color:#ffffff;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-padding:15px 28px;
-border-radius:8px;
-display:inline-block;
-">
-📞 Call Now
-</a>
-
-</td>
-
-<td style="padding:8px;">
-
-<a
-href="https://wa.me/919999384627"
-target="_blank"
-style="
-background:#25D366;
-color:#ffffff;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-padding:15px 28px;
-border-radius:8px;
-display:inline-block;
-">
-WhatsApp
-</a>
-
-</td>
-
-<td style="padding:8px;">
-
-<a
-href="https://avdmc.com"
-target="_blank"
-style="
-background:#ff7a00;
-color:#ffffff;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-padding:15px 28px;
-border-radius:8px;
-display:inline-block;
-">
-🌐 Visit Website
-</a>
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-</tr>
-
-<!-- Footer -->
-<tr>
-
-<td style="background:#0f172a;color:#ffffff;padding:35px;text-align:center;">
-
-<h2 style="margin:0;font-size:30px;">
-AV DMC
-</h2>
-
-<p style="margin:15px 0;font-size:18px;">
-Your Trusted Travel Partner
-</p>
-
-<p style="margin:15px 0;line-height:30px;">
-
-🏝️ Maldives • Singapore • Malaysia • Bali • CIS • Europe • Mauritius • Australia
-
-</p>
-
-<p style="margin:15px 0;line-height:30px;">
-
-📧 info@avdmc.com &nbsp; | &nbsp; query@avdmc.com
-
-</p>
-
-<p style="margin:10px 0;line-height:30px;">
-
-☎ +91 9660915427 &nbsp; | &nbsp; +91 9462994641 &nbsp; | &nbsp; +91 9999384627
-
-</p>
-
-<p style="margin-top:25px;font-size:16px;color:#d1d5db;">
-
-Experience the perfect Maldives luxury getaway at <b>Atmosphere Kanifushi</b> with Premium All-Inclusive benefits, Sunset Beach Villa, Water Villa, Seaplane Transfers, Spa Experience and much more.
-
-</p>
-
-</td>
-
-</tr>
-
-</table>
-
-</td>
-
-</tr>
-
+  width="100%"
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+  style="background:#f3f7fb;padding:20px 0;"
+>
+  <tr>
+    <td align="center">
+
+      <!-- MAIN CONTAINER -->
+      <table
+        width="700"
+        cellpadding="0"
+        cellspacing="0"
+        border="0"
+        style="
+          width:100%;
+          max-width:700px;
+          background:#ffffff;
+        "
+      >
+
+        <!-- HEADER -->
+        <tr>
+          <td align="center" style="padding:28px 25px 15px;background:#ffffff;">
+
+            <div style="
+              font-size:36px;
+              letter-spacing:8px;
+              font-weight:bold;
+              color:#263d82;
+              line-height:1.1;
+            ">
+              VILLA NAUTICA
+            </div>
+
+            <div style="
+              margin-top:8px;
+              font-size:17px;
+              letter-spacing:6px;
+              font-weight:bold;
+              color:#263d82;
+            ">
+              PARADISE ISLAND
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- HERO TITLE -->
+        <tr>
+          <td align="center" style="padding:15px 35px 25px;">
+
+            <h1 style="
+              margin:0;
+              font-size:30px;
+              line-height:1.25;
+              color:#20377c;
+              font-weight:bold;
+            ">
+              Book Beach Villa Get Deluxe Beach Pool Villa
+              Free Room Upgrade Offer with AI Plans
+            </h1>
+
+          </td>
+        </tr>
+
+
+        <!-- HERO IMAGE -->
+        <tr>
+          <td>
+            <img
+              src="https://officialtarun.in/avdmc/villa.jpeg"
+              alt="Villa Nautica Paradise Island Maldives"
+              style="
+                display:block;
+                width:100%;
+                max-width:700px;
+                height:auto;
+                border:0;
+              "
+            >
+          </td>
+        </tr>
+
+
+        <!-- LIMITED OFFER LABEL -->
+        <tr>
+          <td align="center" style="padding:20px 25px 5px;">
+
+            <div style="
+              display:inline-block;
+              background:#ed1c24;
+              color:#ffffff;
+              padding:10px 28px;
+              border-radius:30px;
+              font-size:24px;
+              font-weight:bold;
+              letter-spacing:1px;
+            ">
+              LIMITED OFFER
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- INTRO -->
+        <tr>
+          <td style="padding:20px 35px 10px;">
+
+            <p style="
+              margin:0;
+              font-size:17px;
+              color:#444;
+              line-height:1.7;
+              text-align:center;
+            ">
+              Escape to the Maldives and enjoy an unforgettable stay at
+              <strong>Villa Nautica, Paradise Island</strong>.
+              Book a Beach Villa and enjoy a
+              <strong>complimentary upgrade to a Deluxe Beach Pool Villa</strong>
+              with exciting All Inclusive benefits.
+            </p>
+
+          </td>
+        </tr>
+
+
+        <!-- PACKAGE OPTIONS -->
+        <tr>
+          <td style="padding:20px 25px;">
+
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+            >
+
+              <!-- PACKAGE 1 -->
+              <tr>
+                <td width="68%" valign="top" style="padding:10px;">
+
+                  <div style="
+                    border-left:5px solid #263d82;
+                    padding-left:15px;
+                  ">
+
+                    <div style="
+                      font-size:21px;
+                      font-weight:bold;
+                      color:#20377c;
+                      margin-bottom:8px;
+                    ">
+                      3N Deluxe Beach Pool Villa
+                    </div>
+
+                    <div style="
+                      font-size:14px;
+                      color:#555;
+                      margin-bottom:10px;
+                    ">
+                      Free Upgrade from Beach Villa
+                    </div>
+
+                    <div style="
+                      font-size:16px;
+                      line-height:1.8;
+                      color:#222;
+                    ">
+                      • All Inclusive (AI)<br>
+                      • Shared Speedboat Transfers
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td width="32%" valign="middle" align="center" style="padding:10px;">
+
+                  <div style="
+                    background:#302b78;
+                    color:#ffffff;
+                    padding:15px 10px;
+                    border-right:6px solid #5148d9;
+                  ">
+
+                    <div style="
+                      font-size:14px;
+                      line-height:1.2;
+                    ">
+                      Starting
+                    </div>
+
+                    <div style="
+                      font-size:34px;
+                      font-weight:bold;
+                      line-height:1.1;
+                    ">
+                      $723
+                    </div>
+
+                    <div style="
+                      font-size:13px;
+                    ">
+                      Per Person
+                    </div>
+
+                  </div>
+
+                </td>
+              </tr>
+
+
+              <!-- DIVIDER -->
+              <tr>
+                <td colspan="2">
+                  <div style="
+                    border-top:1px solid #ddd;
+                    margin:8px 0;
+                  "></div>
+                </td>
+              </tr>
+
+
+              <!-- PACKAGE 2 -->
+              <tr>
+                <td width="68%" valign="top" style="padding:10px;">
+
+                  <div style="
+                    border-left:5px solid #263d82;
+                    padding-left:15px;
+                  ">
+
+                    <div style="
+                      font-size:21px;
+                      font-weight:bold;
+                      color:#20377c;
+                      margin-bottom:8px;
+                    ">
+                      2N Deluxe Beach Pool Villa
+                    </div>
+
+                    <div style="
+                      font-size:14px;
+                      color:#555;
+                      margin-bottom:10px;
+                    ">
+                      Free Upgrade from Beach Villa
+                    </div>
+
+                    <div style="
+                      font-size:16px;
+                      line-height:1.8;
+                      color:#222;
+                    ">
+                      • 2N Water Villa<br>
+                      • All Inclusive (AI)<br>
+                      • Shared Speedboat Transfers
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td width="32%" valign="middle" align="center" style="padding:10px;">
+
+                  <div style="
+                    background:#302b78;
+                    color:#ffffff;
+                    padding:15px 10px;
+                    border-right:6px solid #5148d9;
+                  ">
+
+                    <div style="
+                      font-size:14px;
+                      line-height:1.2;
+                    ">
+                      Starting
+                    </div>
+
+                    <div style="
+                      font-size:34px;
+                      font-weight:bold;
+                      line-height:1.1;
+                    ">
+                      $1148
+                    </div>
+
+                    <div style="
+                      font-size:13px;
+                    ">
+                      Per Person
+                    </div>
+
+                  </div>
+
+                </td>
+              </tr>
+
+            </table>
+
+          </td>
+        </tr>
+
+
+        <!-- OFFER BENEFITS -->
+        <tr>
+          <td style="padding:15px 30px 30px;">
+
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+              style="
+                background:#f4f6ff;
+                border-radius:10px;
+                border:1px solid #dfe3f5;
+              "
+            >
+
+              <tr>
+                <td style="padding:25px;">
+
+                  <h2 style="
+                    margin:0 0 15px;
+                    color:#111;
+                    font-size:25px;
+                  ">
+                    Offer Benefits
+                  </h2>
+
+                  <div style="
+                    font-size:16px;
+                    line-height:1.9;
+                    color:#333;
+                  ">
+
+                    • One-Way Free Transfers Already Applied<br>
+
+                    • Free Room Upgrade from Beach to Deluxe Beach Pool Villa<br>
+
+                    • Dolphin Cruise / Sunset Cruise Once (on 4N)<br>
+
+                    • 30 Min Photo Shoot Once with 1 Print Copy<br>
+
+                    • Free Snorkeling Gears<br>
+
+                    • 30 Min Kayak / Stand Up Paddle Once<br>
+
+                    • Honeymooners / Birthday / Anniversary Freebies Also Applicable
+
+                  </div>
+
+                </td>
+              </tr>
+
+            </table>
+
+          </td>
+        </tr>
+
+
+        <!-- OFFER PERIOD -->
+        <tr>
+          <td style="padding:0 25px 25px;">
+
+            <div style="
+              background:#ffe600;
+              color:#111;
+              text-align:center;
+              padding:13px 15px;
+              font-size:16px;
+              font-weight:bold;
+              border-radius:6px;
+            ">
+              OFFER ALSO AVAILABLE FOR TRAVEL BETWEEN :
+              25 AUG - 20 OCT 2026
+              <br>
+              FOR RATES CONNECT US!
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- ADDITIONAL BENEFITS -->
+        <tr>
+          <td style="padding:10px 25px 30px;">
+
+            <table
+              width="100%"
+              cellpadding="0"
+              cellspacing="0"
+              border="0"
+            >
+
+              <tr>
+
+                <!-- LEFT -->
+                <td
+                  width="50%"
+                  valign="top"
+                  style="
+                    background:#283f87;
+                    color:#ffffff;
+                    padding:25px;
+                  "
+                >
+
+                  <h2 style="
+                    margin:0 0 15px;
+                    color:#ffffff;
+                    font-size:22px;
+                  ">
+                    Additional Benefits
+                    with AI Plan
+                  </h2>
+
+                  <div style="
+                    font-size:15px;
+                    line-height:1.9;
+                  ">
+                    • A La Carte Lunch Once<br>
+                    • $100 Spa Credit for 2 Pax<br>
+                    • 4N Minimum Stay Required
+                  </div>
+
+                </td>
+
+
+                <!-- RIGHT -->
+                <td
+                  width="50%"
+                  valign="top"
+                  style="
+                    background:#344b91;
+                    color:#ffffff;
+                    padding:25px;
+                  "
+                >
+
+                  <h2 style="
+                    margin:0 0 15px;
+                    color:#ffffff;
+                    font-size:22px;
+                  ">
+                    Terms & Conditions
+                  </h2>
+
+                  <div style="
+                    font-size:15px;
+                    line-height:1.9;
+                  ">
+                    • 3N Minimum Stay Required<br>
+                    • Book Before: 10th Aug<br>
+                    • Travel Between: 1 Sep - 30 Sep<br>
+                    • Room Upgrade is Subject to Availability
+                  </div>
+
+                </td>
+
+              </tr>
+
+            </table>
+
+          </td>
+        </tr>
+                <!-- CTA -->
+        <tr>
+          <td
+            align="center"
+            style="
+              background:#263d82;
+              padding:35px 25px;
+              color:#ffffff;
+            "
+          >
+
+            <h2 style="
+              margin:0 0 12px;
+              color:#ffffff;
+              font-size:29px;
+            ">
+              Book Your Maldives Escape
+            </h2>
+
+            <p style="
+              margin:0 0 22px;
+              color:#ffffff;
+              font-size:16px;
+              line-height:1.7;
+            ">
+              Villa Nautica • Paradise Island • Maldives
+              <br>
+              Beach Villa Upgrade • Pool Villa • Water Villa
+              <br>
+              All Inclusive Plans • Speedboat Transfers
+            </p>
+
+            <a
+              href="https://wa.me/919999384627"
+              style="
+                display:inline-block;
+                background:#25D366;
+                color:#ffffff;
+                text-decoration:none;
+                padding:14px 32px;
+                border-radius:6px;
+                font-size:18px;
+                font-weight:bold;
+              "
+            >
+              💬 Connect on WhatsApp
+            </a>
+
+          </td>
+        </tr>
+
+
+        <!-- CONTACT SECTION -->
+        <tr>
+          <td style="
+            padding:35px 25px;
+            background:#f7f9ff;
+          ">
+
+            <h2 style="
+              margin:0 0 8px;
+              text-align:center;
+              color:#263d82;
+              font-size:28px;
+            ">
+              Contact Our Sales Team
+            </h2>
+
+            <p style="
+              margin:0 0 25px;
+              text-align:center;
+              color:#666;
+              font-size:15px;
+            ">
+              Contact our Maldives specialists for rates and availability.
+            </p>
+
+
+            <!-- CONTACT GRID -->
+            <table
+              width="100%"
+              cellpadding="8"
+              cellspacing="0"
+              border="0"
+            >
+
+              <!-- ROW 1 -->
+              <tr>
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Jitender
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      PAN India Sales
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+919999384627"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 9999384627
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:jitender@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        jitender@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Shanky
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      Maldives Sales & Operations
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+918527638777"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 8527638777
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:shanky@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        shanky@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+
+              <!-- ROW 2 -->
+              <tr>
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Pushkar
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      Delhi NCR Sales
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+919643223032"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 9643223032
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:sales@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        sales@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Kuldeep
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      Europe • Baku
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+919660915427"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 9660915427
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:kuldeep@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        kuldeep@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+
+              <!-- ROW 3 -->
+              <tr>
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Jitender Yadav
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      Mauritius • Singapore • Malaysia • Bali
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+918130728100"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 8130728100
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:query@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        query@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Sakshi
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      Singapore • Malaysia
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+919453488908"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 9453488908
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:ops@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        ops@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+
+              <!-- ROW 4 -->
+              <tr>
+
+                <td width="50%" valign="top">
+
+                  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Anshu
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      Operations
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+918796901097"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 8796901097
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:maldives@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        maldives@avdmc.com
+                      </a>
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <td width="50%" valign="top">  <div style="
+                    background:#ffffff;
+                    border:1px solid #dfe5f2;
+                    border-radius:8px;
+                    padding:18px;
+                  ">
+
+                    <div style="
+                      font-size:19px;
+                      font-weight:bold;
+                      color:#263d82;
+                    ">
+                      Yogesh
+                    </div>
+
+                    <div style="
+                      margin-top:5px;
+                      color:#777;
+                      font-size:14px;
+                    ">
+                      West India Sales
+                    </div>
+
+                    <div style="margin-top:12px;">
+                      📞
+                      <a
+                        href="tel:+919930422354"
+                        style="
+                          color:#222;
+                          text-decoration:none;
+                        "
+                      >
+                        +91 9930422354
+                      </a>
+                    </div>
+
+                    <div style="margin-top:6px;">
+                      📧
+                      <a
+                        href="mailto:yogesh@avdmc.com"
+                        style="
+                          color:#263d82;
+                          text-decoration:none;
+                        "
+                      >
+                        yogesh@avdmc.com
+                      </a>
+                    </div>
+
+                  </div></td>
+
+              </tr>
+
+            </table>
+
+
+            <!-- CONTACT BUTTONS -->
+            <div style="
+              text-align:center;
+              margin-top:25px;
+            ">
+
+              <a
+                href="tel:+919999384627"
+                style="
+                  display:inline-block;
+                  background:#263d82;
+                  color:#ffffff;
+                  text-decoration:none;
+                  padding:13px 25px;
+                  border-radius:6px;
+                  font-weight:bold;
+                  margin:4px;
+                "
+              >
+                📞 Call Now
+              </a>
+
+              <a
+                href="https://wa.me/919999384627"
+                style="
+                  display:inline-block;
+                  background:#25D366;
+                  color:#ffffff;
+                  text-decoration:none;
+                  padding:13px 25px;
+                  border-radius:6px;
+                  font-weight:bold;
+                  margin:4px;
+                "
+              >
+                💬 WhatsApp
+              </a>
+
+              <a
+                href="https://www.avdmc.com"
+                style="
+                  display:inline-block;
+                  background:#f5a623;
+                  color:#ffffff;
+                  text-decoration:none;
+                  padding:13px 25px;
+                  border-radius:6px;
+                  font-weight:bold;
+                  margin:4px;
+                "
+              >
+                🌐 Visit Website
+              </a>
+
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- EMAIL CONTACT BAR -->
+        <tr>
+          <td
+            align="center"
+            style="
+              background:#111111;
+              color:#ffffff;
+              padding:18px 20px;
+            "
+          >
+
+            <div style="
+              font-size:16px;
+              font-weight:bold;
+            ">
+              Write to us:
+              <a
+                href="mailto:query@avdmc.com"
+                style="
+                  color:#ffffff;
+                  text-decoration:none;
+                "
+              >
+                query@avdmc.com
+              </a>
+              ,
+              <a
+                href="mailto:maldives@avdmc.com"
+                style="
+                  color:#ffffff;
+                  text-decoration:none;
+                "
+              >
+                maldives@avdmc.com
+              </a>
+            </div>
+
+          </td>
+        </tr>
+
+
+        <!-- FOOTER -->
+        <tr>
+          <td
+            align="center"
+            style="
+              background:#263d82;
+              color:#ffffff;
+              padding:28px 20px;
+            "
+          >
+
+            <h3 style="
+              margin:0 0 15px;
+              color:#ffffff;
+              font-size:20px;
+            ">
+              Follow AV DMC
+            </h3>
+
+            <div style="
+              margin-bottom:18px;
+              font-size:15px;
+            ">
+
+              <a
+                href="https://www.facebook.com/avdmc"
+                style="
+                  color:#ffffff;
+                  text-decoration:none;
+                "
+              >
+                Facebook
+              </a>
+
+              &nbsp; | &nbsp;
+
+              <a
+                href="https://www.instagram.com/avdmc"
+                style="
+                  color:#ffffff;
+                  text-decoration:none;
+                "
+              >
+                Instagram
+              </a>
+
+              &nbsp; | &nbsp;
+
+              <a
+                href="https://www.linkedin.com/company/avdmc"
+                style="
+                  color:#ffffff;
+                  text-decoration:none;
+                "
+              >
+                LinkedIn
+              </a>
+
+            </div>
+
+
+            <p style="
+              margin:10px 0;
+              font-size:15px;
+              line-height:1.6;
+              color:#ffffff;
+            ">
+              Maldives | Singapore | Malaysia | Bali |
+              CIS | Europe | Mauritius | Australia
+            </p>
+
+
+            <p style="
+              margin:18px 0 0;
+              font-size:12px;
+              color:#dce4ff;
+            ">
+              © ${new Date().getFullYear()} AV DMC.
+              All Rights Reserved.
+            </p>
+
+          </td>
+        </tr>
+
+
+      </table>
+
+    </td>
+  </tr>
 </table>
 
 </body>
-
 </html>
 `;
 }

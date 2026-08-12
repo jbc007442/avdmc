@@ -1,181 +1,3 @@
-// 'use client';
-// import { useEffect, useState } from 'react';
-
-// export default function InboxPage() {
-//   const [messages, setMessages] = useState<any[]>([]);
-//   const [filter, setFilter] = useState('');
-//   const [replyTo, setReplyTo] = useState<string>('');
-//   const [replyText, setReplyText] = useState('');
-//   const [sending, setSending] = useState(false);
-
-//   const load = async () => {
-//     const res = await fetch('/api/inbox');
-//     const data = await res.json();
-//     setMessages(data);
-//   };
-
-//   useEffect(() => {
-//     load();
-//     const interval = setInterval(load, 3000);
-//     return () => clearInterval(interval);
-//   }, []);
-
-//   const handleReply = async () => {
-//     if (!replyTo || !replyText) return;
-//     setSending(true);
-//     const res = await fetch('/api/inbox/reply', {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify({ to: replyTo, message: replyText }),
-//     });
-//     const data = await res.json();
-//     setSending(false);
-//     if (data.success) {
-//       setReplyText('');
-//       setReplyTo('');
-//       load();
-//     } else {
-//       alert('Failed: ' + JSON.stringify(data.error));
-//     }
-//   };
-
-//   const filtered = messages.filter(
-//     (m) =>
-//       !filter || m.from?.includes(filter) || m.text?.toLowerCase().includes(filter.toLowerCase())
-//   );
-
-//   // Group by number for chat view
-//   const grouped = filtered.reduce((acc: any, msg) => {
-//     if (!acc[msg.from]) acc[msg.from] = [];
-//     acc[msg.from].push(msg);
-//     return acc;
-//   }, {});
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
-//       <div className="max-w-7xl mx-auto">
-//         <div className="bg-white rounded-2xl shadow-sm border p-5 mb-6">
-//           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-//             <div>
-//               <h1 className="text-2xl font-bold">WhatsApp Inbox - AV DMC</h1>
-//               <p className="text-sm text-gray-500">
-//                 {Object.keys(grouped).length} customers • {messages.length} messages
-//               </p>
-//             </div>
-//             <input
-//               placeholder="Search number or message..."
-//               value={filter}
-//               onChange={(e) => setFilter(e.target.value)}
-//               className="px-4 py-2.5 w- border rounded-xl outline-none focus:ring-2 focus:ring-green-500 text-sm"
-//             />
-//           </div>
-//         </div>
-
-//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-//           {/* Left: Customer List */}
-//           <div className="bg-white rounded-2xl shadow-sm border overflow-hidden">
-//             <div className="p-4 font-bold border-b">Customers</div>
-//             <div className="divide-y max-h- overflow-y-auto">
-//               {Object.keys(grouped).map((num) => (
-//                 <button
-//                   key={num}
-//                   onClick={() => setReplyTo(num)}
-//                   className={`w-full text-left p-4 hover:bg-gray-50 flex justify-between items-center ${replyTo === num ? 'bg-green-50' : ''}`}
-//                 >
-//                   <div>
-//                     <div className="font-bold">+{num}</div>
-//                     <div className="text-xs text-gray-500 truncate max-w-">
-//                       {grouped[num][0]?.text}
-//                     </div>
-//                   </div>
-//                   <span className="text-xs bg-gray-900 text-white px-2 py-1 rounded-full">
-//                     {grouped[num].length}
-//                   </span>
-//                 </button>
-//               ))}
-//             </div>
-//           </div>
-
-//           {/* Right: Table + Reply */}
-//           <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border overflow-hidden flex flex-col">
-//             <div className="flex-1 overflow-auto">
-//               <table className="w-full text-sm">
-//                 <thead className="bg-gray-900 text-white sticky top-0">
-//                   <tr>
-//                     <th className="px-4 py-3 text-left">Number</th>
-//                     <th className="px-4 py-3 text-left">Message</th>
-//                     <th className="px-4 py-3">Type</th>
-//                     <th className="px-4 py-3">Time</th>
-//                   </tr>
-//                 </thead>
-//                 <tbody className="divide-y">
-//                   {filtered.slice(0, 100).map((m: any, i: number) => (
-//                     <tr key={m._id || i} className="hover:bg-gray-50">
-//                       <td className="px-4 py-3 font-bold">+{m.from}</td>
-//                       <td className="px-4 py-3">
-//                         <div
-//                           className={`inline-block px-3 py-2 rounded-2xl max-w- break-words ${m.direction === 'INCOMING' ? 'bg-green-100' : 'bg-gray-100'}`}
-//                         >
-//                           {m.text}
-//                         </div>
-//                       </td>
-//                       <td className="px-4 py-3">
-//                         <span
-//                           className={`px-2 py-1 rounded-full text- font-bold text-white ${m.direction === 'INCOMING' ? 'bg-green-500' : 'bg-blue-500'}`}
-//                         >
-//                           {m.direction}
-//                         </span>
-//                       </td>
-//                       <td className="px-4 py-3 text-xs text-gray-500 whitespace-nowrap">
-//                         {new Date(m.createdAt).toLocaleString('en-IN')}
-//                       </td>
-//                     </tr>
-//                   ))}
-//                 </tbody>
-//               </table>
-//             </div>
-
-//             {/* Reply Box */}
-//             <div className="border-t p-4 bg-gray-50">
-//               {replyTo ? (
-//                 <div className="flex gap-2">
-//                   <div className="flex-1">
-//                     <div className="text-xs font-bold mb-1">Replying to +{replyTo}</div>
-//                     <input
-//                       value={replyText}
-//                       onChange={(e) => setReplyText(e.target.value)}
-//                       placeholder="Type your reply..."
-//                       className="w-full px-4 py-3 border rounded-xl outline-none focus:ring-2 focus:ring-green-500 text-sm"
-//                       onKeyDown={(e) => e.key === 'Enter' && handleReply()}
-//                     />
-//                   </div>
-//                   <button
-//                     onClick={handleReply}
-//                     disabled={sending}
-//                     className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold text-sm disabled:opacity-50 self-end"
-//                   >
-//                     {sending ? 'Sending...' : 'Send'}
-//                   </button>
-//                   <button
-//                     onClick={() => setReplyTo('')}
-//                     className="px-4 py-3 bg-gray-200 rounded-xl text-sm self-end"
-//                   >
-//                     X
-//                   </button>
-//                 </div>
-//               ) : (
-//                 <p className="text-sm text-gray-400 text-center">
-//                   Select a customer from left to reply
-//                 </p>
-//               )}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 'use client';
 
 import { useEffect, useMemo, useState, useRef } from 'react';
@@ -212,8 +34,16 @@ export default function InboxPage() {
   const [loading, setLoading] = useState(true);
   const [reply, setReply] = useState('');
   const [sending, setSending] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const selectedChatRef = useRef('');
+
+  // Keep latest selected chat in the ref
+  useEffect(() => {
+    selectedChatRef.current = selectedChat;
+  }, [selectedChat]);
+
+  // Auto scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({
       behavior: 'smooth',
@@ -234,7 +64,8 @@ export default function InboxPage() {
 
       setMessages(data);
 
-      if (!selectedChat && data.length) {
+      // Select only the first chat on initial load
+      if (!selectedChatRef.current && data.length > 0) {
         setSelectedChat(data[0].from);
       }
 
@@ -247,6 +78,7 @@ export default function InboxPage() {
   //-------------------------------------------------------
   // Send Messages
   //-------------------------------------------------------
+
   async function sendReply() {
     if (!reply.trim() || !selectedChat) return;
 
@@ -282,21 +114,27 @@ export default function InboxPage() {
 
       if (!data.success) {
         alert('Message failed');
-        loadMessages();
+        await loadMessages();
       }
     } catch (err) {
       console.log(err);
-      loadMessages();
+      await loadMessages();
     }
 
     setSending(false);
     await loadMessages();
   }
 
+  //-------------------------------------------------------
+  // Initial Load + Polling
+  //-------------------------------------------------------
+
   useEffect(() => {
     loadMessages();
 
-    const timer = setInterval(loadMessages, 3000);
+    const timer = setInterval(() => {
+      loadMessages();
+    }, 3000);
 
     return () => clearInterval(timer);
   }, []);
@@ -489,86 +327,95 @@ export default function InboxPage() {
                 {(() => {
                   let lastDate = '';
 
-                  return messages
+                  // Sort messages oldest -> newest
+                  const chatMessages = messages
                     .filter((m) => m.from === selectedChat)
-                    .map((message, index) => {
-                      const incoming = message.direction === 'INCOMING';
+                    .sort(
+                      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+                    );
 
-                      const messageDate = new Date(message.createdAt);
-                      const currentDate = messageDate.toDateString();
+                  return chatMessages.map((message, index) => {
+                    const incoming = message.direction === 'INCOMING';
 
-                      const today = new Date().toDateString();
+                    const messageDate = new Date(message.createdAt);
+                    const currentDate = messageDate.toDateString();
 
-                      const yesterday = new Date();
-                      yesterday.setDate(yesterday.getDate() - 1);
+                    const today = new Date().toDateString();
 
-                      let dateLabel = currentDate;
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
 
-                      if (currentDate === today) {
-                        dateLabel = 'Today';
-                      } else if (currentDate === yesterday.toDateString()) {
-                        dateLabel = 'Yesterday';
-                      }
+                    let dateLabel = currentDate;
 
-                      const showDate = currentDate !== lastDate;
-                      lastDate = currentDate;
+                    if (currentDate === today) {
+                      dateLabel = 'Today';
+                    } else if (currentDate === yesterday.toDateString()) {
+                      dateLabel = 'Yesterday';
+                    }
 
-                      const prev = messages.filter((m) => m.from === selectedChat)[index - 1];
+                    const showDate = currentDate !== lastDate;
+                    lastDate = currentDate;
 
-                      const sameSender = prev && prev.direction === message.direction;
+                    const prev = chatMessages[index - 1];
 
-                      return (
-                        <div key={message._id || index}>
-                          {showDate && (
-                            <div className="flex justify-center my-4">
-                              <span className="bg-[#dff6ff] text-gray-600 text-xs px-4 py-1 rounded-full shadow">
-                                {dateLabel}
-                              </span>
-                            </div>
-                          )}
+                    const sameSender = prev && prev.direction === message.direction;
 
+                    return (
+                      <div key={message._id || index}>
+                        {showDate && (
+                          <div className="flex justify-center my-4">
+                            <span className="bg-[#dff6ff] text-gray-600 text-xs px-4 py-1 rounded-full shadow">
+                              {dateLabel}
+                            </span>
+                          </div>
+                        )}
+
+                        <div
+                          className={`flex ${
+                            incoming ? 'justify-start' : 'justify-end'
+                          } ${sameSender ? 'mt-1' : 'mt-4'}`}
+                        >
                           <div
-                            className={`flex ${incoming ? 'justify-start' : 'justify-end'} ${
-                              sameSender ? 'mt-1' : 'mt-4'
+                            className={`relative max-w-xl px-4 py-2 shadow transition-all duration-200 hover:shadow-lg ${
+                              incoming
+                                ? 'bg-white rounded-2xl rounded-tl-md'
+                                : 'bg-[#d9fdd3] rounded-2xl rounded-tr-md'
                             }`}
                           >
-                            <div
-                              className={`relative max-w-xl px-4 py-2 shadow transition-all duration-200 hover:shadow-lg
-${incoming ? 'bg-white rounded-2xl rounded-tl-md' : 'bg-[#d9fdd3] rounded-2xl rounded-tr-md'}`}
-                            >
-                              {!sameSender && (
-                                <span
-                                  className={`absolute top-0 w-3 h-3 ${
-                                    incoming ? '-left-1 bg-white' : '-right-1 bg-[#d9fdd3]'
-                                  } rotate-45`}
+                            {!sameSender && (
+                              <span
+                                className={`absolute top-0 w-3 h-3 ${
+                                  incoming ? '-left-1 bg-white' : '-right-1 bg-[#d9fdd3]'
+                                } rotate-45`}
+                              />
+                            )}
+
+                            <p className="text-[15px] whitespace-pre-wrap break-words">
+                              {message.text}
+                            </p>
+
+                            <div className="flex justify-end items-center gap-1 mt-2">
+                              <span className="text-[11px] text-gray-500">
+                                {messageDate.toLocaleTimeString('en-IN', {
+                                  hour: 'numeric',
+                                  minute: '2-digit',
+                                  hour12: true,
+                                })}
+                              </span>
+
+                              {!incoming && (
+                                <CheckCheck
+                                  size={16}
+                                  strokeWidth={2.5}
+                                  className="text-[#53bdeb]"
                                 />
                               )}
-                              <p className="text-[15px] whitespace-pre-wrap break-words">
-                                {message.text}
-                              </p>
-
-                              <div className="flex justify-end items-center gap-1 mt-2">
-                                <span className="text-[11px] text-gray-500">
-                                  {messageDate.toLocaleTimeString('en-IN', {
-                                    hour: 'numeric',
-                                    minute: '2-digit',
-                                    hour12: true,
-                                  })}
-                                </span>
-
-                                {!incoming && (
-                                  <CheckCheck
-                                    size={16}
-                                    strokeWidth={2.5}
-                                    className="text-[#53bdeb]"
-                                  />
-                                )}
-                              </div>
                             </div>
                           </div>
                         </div>
-                      );
-                    });
+                      </div>
+                    );
+                  });
                 })()}
 
                 <div ref={messagesEndRef} />
