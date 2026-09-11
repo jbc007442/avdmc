@@ -31,7 +31,7 @@ export default function Home() {
     switch (template) {
       case 'travel':
         setHtml(TravelTemplate());
-        setSubject('Maldives Special Offer');
+        setSubject('Villa Nautica Maldives Flash Sale 🌴 | From $1010 PP + Free Room Upgrade');
         break;
 
       case 'singapore':

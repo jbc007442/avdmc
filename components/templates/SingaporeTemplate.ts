@@ -5,7 +5,7 @@ export function SingaporeTemplate() {
 
 <head>
 <meta charset="UTF-8">
-<title>Singapore Getaway</title>
+<title>Singapore Special Offer</title>
 </head>
 
 <body style="margin:0;padding:0;background:#edf2f7;font-family:Arial,Helvetica,sans-serif;">
@@ -23,28 +23,39 @@ style="background:#ffffff;border-radius:12px;overflow:hidden;">
 <td>
 
 <img
-src="https://www.officialtarun.in/avdmc/pool.jpeg"
+src="https://www.officialtarun.in/avdmc/desktop.jpeg"
 width="650"
 style="display:block;width:100%;height:auto;">
 
 </td>
 </tr>
 
+
 <!-- Heading -->
 
 <tr>
-<td align="center" style="padding:35px;">
+<td align="center" style="padding:30px 35px 25px;">
 
-<h1 style="margin:0;font-size:36px;color:#0b5ed7;">
-✈️ SINGAPORE GETAWAY
+<h1 style="
+margin:0;
+font-size:38px;
+color:#14284b;
+font-weight:800;
+">
+✈️ SPECIAL SINGAPORE OFFER
 </h1>
 
-<p style="font-size:20px;color:#666;margin-top:12px;">
-4 Nights / 5 Days
+<p style="
+font-size:19px;
+color:#666;
+margin:12px 0 0;
+">
+Experience the best of Singapore
 </p>
 
 </td>
 </tr>
+
 
 <!-- Price Card -->
 
@@ -55,24 +66,43 @@ style="display:block;width:100%;height:auto;">
 width="100%"
 cellpadding="18"
 cellspacing="0"
-style="background:#f8fbff;border:2px solid #0b5ed7;border-radius:10px;">
+style="
+background:#073f47;
+border:3px solid #d5a72b;
+border-radius:18px;
+">
 
 <tr>
-
 <td align="center">
 
-<h2
-style="margin:0;color:#0b5ed7;font-size:32px;">
-Only SGD 350
+<p style="
+margin:0;
+font-size:17px;
+color:#ffffff;
+font-weight:bold;
+">
+LAND COST
+</p>
+
+<h2 style="
+margin:5px 0;
+color:#ffffff;
+font-size:42px;
+font-weight:800;
+">
+SGD 454
 </h2>
 
-<p
-style="font-size:20px;color:#222;margin-top:10px;font-weight:bold;">
-Land Package Per Person
+<p style="
+font-size:20px;
+color:#ffffff;
+margin:0;
+font-weight:bold;
+">
+PER PERSON
 </p>
 
 </td>
-
 </tr>
 
 </table>
@@ -80,40 +110,57 @@ Land Package Per Person
 </td>
 </tr>
 
-<!-- Package Includes -->
+
+<!-- Inclusion -->
 
 <tr>
-<td style="padding:0 35px;">
+<td style="padding:0 35px 20px;">
 
-<h2 style="color:#0b5ed7;">
-✅ Package Includes
+<h2 style="
+color:#0b5ed7;
+font-size:27px;
+margin-bottom:15px;
+">
+✅ Inclusion
 </h2>
 
-<table width="100%" cellpadding="10">
+<table width="100%" cellpadding="9" cellspacing="0"
+style="font-size:16px;color:#333;">
 
 <tr>
-<td>🏙️ Singapore City Tour</td>
-<td>🦁 Night Safari with Tram Ride</td>
+<td>🏙️ <b>City Tour</b></td>
 </tr>
 
 <tr>
-<td>🌺 Gardens by the Bay (2 Conservatories)</td>
-<td>🌆 Marina Bay Sands Visit</td>
+<td>🌺 <b>Gardens by the Bay - 2 Domes</b></td>
 </tr>
 
 <tr>
-<td>🏝️ Sentosa Island Tour</td>
-<td>🚠 Cable Car Ride</td>
+<td>🏨 <b>Marina Bay Sands</b></td>
 </tr>
 
 <tr>
-<td>🎭 Wings of Time Show</td>
-<td>⭐ Madame Tussauds 4-in-1</td>
+<td>🏝️ <b>Sentosa</b></td>
 </tr>
 
 <tr>
-<td>🎢 Universal Studios Singapore</td>
-<td></td>
+<td>🚠 <b>Cable Car</b></td>
+</tr>
+
+<tr>
+<td>✨ <b>Wings of Time</b></td>
+</tr>
+
+<tr>
+<td>🎭 <b>Madame Tussauds 4-in-1</b></td>
+</tr>
+
+<tr>
+<td>🎢 <b>Universal Studios</b></td>
+</tr>
+
+<tr>
+<td>🦁 <b>Night Safari</b></td>
 </tr>
 
 </table>
@@ -121,35 +168,43 @@ Land Package Per Person
 </td>
 </tr>
 
-<!-- Transfers -->
+
+<!-- Tours & Transfers -->
 
 <tr>
-<td style="padding:25px 35px;">
+<td style="padding:10px 35px 25px;">
 
 <table
 width="100%"
-cellpadding="15"
+cellpadding="18"
 cellspacing="0"
-style="background:#f7f9fc;border:1px solid #ddd;">
+style="
+background:#f7f9fc;
+border:2px solid #0b5ed7;
+border-radius:10px;
+">
 
 <tr>
+<td align="center">
 
-<td>
-
-<h2 style="margin-top:0;color:#0b5ed7;">
-🚐 Transfers
+<h2 style="
+margin:0;
+color:#0b5ed7;
+font-size:24px;
+">
+🚐 ALL TOURS AND TRANSFER
 </h2>
 
-<ul style="padding-left:20px;line-height:30px;color:#444;">
-
-<li>Sharing Sightseeing Tours</li>
-
-<li>Private Return Airport Transfers</li>
-
-</ul>
+<p style="
+margin:8px 0 0;
+font-size:22px;
+font-weight:bold;
+color:#222;
+">
+ON <span style="color:#d99f18;">PRIVATE BASIS</span>
+</p>
 
 </td>
-
 </tr>
 
 </table>
@@ -157,64 +212,108 @@ style="background:#f7f9fc;border:1px solid #ddd;">
 </td>
 </tr>
 
-<!-- Important Information -->
+
+<!-- Important Note -->
 
 <tr>
 <td style="padding:0 35px 30px;">
 
 <table
 width="100%"
-cellpadding="15"
+cellpadding="18"
 cellspacing="0"
-style="background:#fff8e6;border:1px solid #f6c343;">
+style="
+background:#fff8e6;
+border:1px solid #e7b93f;
+border-radius:10px;
+">
 
 <tr>
-
 <td>
 
-<h2
-style="margin-top:0;color:#d97706;">
-📌 Important Information
+<h2 style="
+margin:0 0 15px;
+color:#d97706;
+font-size:24px;
+">
+📌 NOTE
 </h2>
 
-<ul
-style="padding-left:20px;line-height:30px;color:#555;">
+<table width="100%" cellpadding="8" cellspacing="0">
 
-<li>Rates valid until August 2026</li>
+<tr>
+<td width="50%" valign="top">
 
-<li>Minimum 2 Adults Travelling Together</li>
+<b>📅 Rates valid till</b><br>
 
-<li>Package Price Subject to Availability</li>
-
-<li>Terms & Conditions Apply</li>
-
-</ul>
+<span style="
+font-size:20px;
+font-weight:bold;
+color:#222;
+">
+Sept 2026
+</span>
 
 </td>
 
+<td width="50%" valign="top">
+
+<b>👥 Rates valid for</b><br>
+
+<span style="
+font-size:18px;
+font-weight:bold;
+color:#222;
+">
+Minimum 2 pax
+</span>
+
+<br>
+
+<span style="color:#555;">
+travelling together.
+</span>
+
+</td>
 </tr>
 
 </table>
 
 </td>
 </tr>
-<!-- CTA Heading -->
+
+</table>
+
+</td>
+</tr>
+
+
+<!-- Contact Heading -->
 
 <tr>
 <td align="center" style="padding:10px 35px 20px;">
 
-<h2 style="margin:0;color:#0b5ed7;font-size:30px;">
-📞 Book Your Singapore Holiday Today!
+<h2 style="
+margin:0;
+color:#0b5ed7;
+font-size:29px;
+">
+📞 Book Your Singapore Package
 </h2>
 
-<p style="color:#555;font-size:17px;margin-top:10px;">
-Contact our Singapore Specialist
+<p style="
+color:#555;
+font-size:17px;
+margin-top:10px;
+">
+Contact the AVDMC Team for rates & bookings
 </p>
 
 </td>
 </tr>
 
-<!-- Sakshi Card -->
+
+<!-- Primary Contact -->
 
 <tr>
 <td style="padding:0 35px 30px;">
@@ -230,69 +329,70 @@ border-radius:10px;
 ">
 
 <tr>
-
 <td align="center">
 
-<h2 style="margin:0;color:#0b5ed7;">
-👩 Sakshi Tripathi
+<h2 style="
+margin:0;
+color:#0b5ed7;
+font-size:24px;
+">
+Jitender Choudhary
 </h2>
 
-<p
-style="
+<p style="
 font-size:18px;
 color:#444;
-margin:12px 0;
+margin:10px 0;
 ">
-Singapore & Malaysia Consultant
+AVDMC Travel Specialist
 </p>
 
-<p
-style="
-font-size:17px;
-margin:8px 0;
-">
+<p style="font-size:17px;margin:8px 0;">
 
 📱
 <a
-href="tel:+919453488908"
-style="color:#0b5ed7;text-decoration:none;font-weight:bold;">
-+91 9453488908
+href="tel:+919999384627"
+style="
+color:#0b5ed7;
+text-decoration:none;
+font-weight:bold;
+">
++91 9999384627
 </a>
 
 </p>
 
-<p
-style="
-font-size:17px;
-margin:8px 0;
-">
+<p style="font-size:17px;margin:8px 0;">
 
 💬
 <a
-href="https://wa.me/919453488908"
-style="color:#25D366;text-decoration:none;font-weight:bold;">
+href="https://wa.me/919999384627"
+target="_blank"
+style="
+color:#25D366;
+text-decoration:none;
+font-weight:bold;
+">
 WhatsApp Chat
 </a>
 
 </p>
 
-<p
-style="
-font-size:17px;
-margin:8px 0;
-">
+<p style="font-size:17px;margin:8px 0;">
 
 📧
 <a
-href="mailto:ops@avdmc.com"
-style="color:#0b5ed7;text-decoration:none;">
-ops@avdmc.com
+href="mailto:jitender@avdmc.com"
+style="
+color:#0b5ed7;
+text-decoration:none;
+">
+jitender@avdmc.com
 </a>
 
 </p>
 
 </td>
-
 </tr>
 
 </table>
@@ -300,66 +400,56 @@ ops@avdmc.com
 </td>
 </tr>
 
+
 <!-- CTA Buttons -->
 
 <tr>
-
-<td align="center" style="padding:10px 25px 35px;">
+<td align="center" style="padding:5px 25px 35px;">
 
 <table cellpadding="0" cellspacing="0">
 
 <tr>
 
-<!-- Call -->
-
-<td style="padding:8px;">
+<td style="padding:6px;">
 
 <a
-href="tel:+919453488908"
+href="tel:+919999384627"
 style="
 background:#2563eb;
 color:#fff;
 text-decoration:none;
-padding:16px 30px;
+padding:15px 25px;
 border-radius:8px;
-font-size:17px;
+font-size:16px;
 font-weight:bold;
 display:inline-block;
 ">
-
 📞 Call Now
-
 </a>
 
 </td>
 
-<!-- WhatsApp -->
-
-<td style="padding:8px;">
+<td style="padding:6px;">
 
 <a
-href="https://wa.me/919453488908"
+href="https://wa.me/919999384627"
 target="_blank"
 style="
 background:#25D366;
 color:#fff;
 text-decoration:none;
-padding:16px 30px;
+padding:15px 25px;
 border-radius:8px;
-font-size:17px;
+font-size:16px;
 font-weight:bold;
 display:inline-block;
 ">
-
 💬 WhatsApp
-
 </a>
 
 </td>
 
-<!-- Website -->
-
-<td style="padding:8px;">
+<td style="padding:6px;">
 
 <a
 href="https://avdmc.com"
@@ -368,15 +458,13 @@ style="
 background:#ff7a00;
 color:#fff;
 text-decoration:none;
-padding:16px 30px;
+padding:15px 25px;
 border-radius:8px;
-font-size:17px;
+font-size:16px;
 font-weight:bold;
 display:inline-block;
 ">
-
 🌐 Website
-
 </a>
 
 </td>
@@ -386,44 +474,38 @@ display:inline-block;
 </table>
 
 </td>
-
 </tr>
+
 
 <!-- Team Heading -->
 
 <tr>
 
-<td
-style="
+<td style="
 padding:15px 35px;
 text-align:center;
 ">
 
-<h2
-style="
+<h2 style="
 margin:0;
 color:#0b5ed7;
-font-size:30px;
+font-size:29px;
 ">
-
 👥 Team AVDMC
-
 </h2>
 
-<p
-style="
+<p style="
 margin-top:10px;
-font-size:17px;
+font-size:16px;
 color:#555;
 ">
-
-Best Deals on Maldives • Mauritius • Singapore • Malaysia • Bali • Baku • Europe • Australia
-
+Your Trusted Travel Partner
 </p>
 
 </td>
 
 </tr>
+
 
 <!-- Team Contacts -->
 
@@ -438,82 +520,94 @@ cellspacing="0"
 style="
 border:1px solid #e5e7eb;
 background:#fafafa;
+font-size:14px;
+line-height:21px;
 ">
 
 <tr>
 
-<td>
+<td width="50%" valign="top">
 
-<b>📱 Shanky</b><br>
-8527638777<br>
-📧 shanky@avdmc.com<br>
-Maldives Sales & Ops
+<b>📱 Kuldeep Singh</b><br>
++91 9660915427
 
 </td>
 
-<td>
+<td width="50%" valign="top">
 
-<b>📱 Anshu</b><br>
-8796901097<br>
-📧 maldives@avdmc.com<br>
-Operations
+<b>📱 Yogesh Gohil</b><br>
++91 9309322354<br>
+West Region
 
 </td>
 
 </tr>
 
+
 <tr>
 
-<td>
+<td valign="top">
 
-<b>📱 Jitender Yadav</b><br>
-8130728100<br>
-📧 query@avdmc.com<br>
-Mauritius • Singapore • Malaysia • Bali
+<b>📱 Pushkar Kandal</b><br>
++91 9643223032<br>
+Delhi, NCR
 
 </td>
 
-<td>
+<td valign="top">
 
-<b>📱 Sakshi</b><br>
-9453488908<br>
-📧 ops@avdmc.com<br>
-Singapore • Malaysia
+<b>📱 Shanky Saxena</b><br>
++91 8527638777
 
 </td>
 
 </tr>
 
+
 <tr>
 
-<td>
+<td valign="top">
 
-<b>📱 Kuldeep</b><br>
-9660915427<br>
-📧 kuldeep@avdmc.com<br>
-Europe • Baku
+<b>📱 Amit Dubey</b><br>
++91 9534684644
 
 </td>
 
-<td>
+<td valign="top">
 
-<b>📱 Pushkar</b><br>
-9643223032<br>
-📧 sales@avdmc.com<br>
-Delhi NCR Sales
+<b>📱 Jitendra Yadav</b><br>
++91 8130728100
 
 </td>
 
 </tr>
 
+
 <tr>
 
-<td colspan="2">
+<td valign="top">
 
-<b>📱 Jitender</b><br>
-9999384627<br>
-📧 jitender@avdmc.com<br>
-PAN India Sales
+<b>📱 Sakshi Tripathi</b><br>
++91 9453488908
+
+</td>
+
+<td valign="top">
+
+<b>📱 Anshu Kabira</b><br>
++91 8796900109
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td colspan="2" valign="top">
+
+<b>📱 Tanmay Vashisht</b><br>
++91 9462994641
 
 </td>
 
@@ -525,31 +619,96 @@ PAN India Sales
 
 </tr>
 
-<!-- Contact Banner -->
+
+<!-- Email Contact -->
 
 <tr>
-<td style="padding:30px 35px;background:#0b5ed7;color:#ffffff;text-align:center;">
 
-<h2 style="margin:0;font-size:28px;">
-🌏 Travel the World with AVDMC
+<td
+style="
+padding:25px 35px;
+background:#0b5ed7;
+color:#ffffff;
+text-align:center;
+">
+
+<h2 style="
+margin:0;
+font-size:24px;
+">
+📧 Write to Us
 </h2>
 
-<p style="margin:15px 0 5px;font-size:18px;line-height:30px;">
+<p style="
+margin:12px 0 0;
+font-size:17px;
+">
 
-We specialize in unforgettable holidays to
+<a
+href="mailto:query@avdmc.com"
+style="
+color:#ffffff;
+text-decoration:none;
+font-weight:bold;
+">
+query@avdmc.com
+</a>
+
+&nbsp;&nbsp; | &nbsp;&nbsp;
+
+<a
+href="mailto:maldives@avdmc.com"
+style="
+color:#ffffff;
+text-decoration:none;
+font-weight:bold;
+">
+maldives@avdmc.com
+</a>
+
+</p>
+
+</td>
+
+</tr>
+
+
+<!-- Destinations -->
+
+<tr>
+
+<td
+style="
+padding:25px 35px;
+text-align:center;
+background:#ffffff;
+">
+
+<h2 style="
+margin:0;
+color:#0b5ed7;
+font-size:24px;
+">
+🌏 Explore the World with AVDMC
+</h2>
+
+<p style="
+margin:12px 0 0;
+font-size:16px;
+color:#555;
+line-height:28px;
+">
 
 <b>
-Maldives • Mauritius • Singapore • Malaysia • Bali • Baku • Europe • Australia
+Maldives | Singapore | Malaysia | Bali | CIS | Europe | Mauritius | Australia
 </b>
 
 </p>
 
-<p style="margin:15px 0 0;font-size:16px;">
-Professional B2B Travel Partner for Travel Agents Across India
-</p>
-
 </td>
+
 </tr>
+
 
 <!-- Footer -->
 
@@ -559,12 +718,11 @@ Professional B2B Travel Partner for Travel Agents Across India
 style="
 background:#111827;
 color:#ffffff;
-padding:40px;
+padding:35px;
 text-align:center;
 ">
 
-<h2
-style="
+<h2 style="
 margin:0;
 font-size:30px;
 color:#ffffff;
@@ -572,11 +730,10 @@ color:#ffffff;
 AVDMC
 </h2>
 
-<p
-style="
+<p style="
 margin:15px 0;
-font-size:17px;
-line-height:30px;
+font-size:16px;
+line-height:28px;
 ">
 
 📧
@@ -590,32 +747,30 @@ query@avdmc.com
 
 📧
 <a
-href="mailto:ops@avdmc.com"
+href="mailto:maldives@avdmc.com"
 style="color:#ffffff;text-decoration:none;">
-ops@avdmc.com
+maldives@avdmc.com
 </a>
 
 </p>
 
-<p
-style="
-margin:0;
-font-size:17px;
-">
+<p style="margin:0;font-size:16px;">
 
 ☎
 <a
 href="tel:+919999384627"
-style="color:#ffffff;text-decoration:none;">
+style="
+color:#ffffff;
+text-decoration:none;
+font-weight:bold;
+">
 +91 9999384627
 </a>
 
 </p>
 
-<p
-style="
-margin-top:25px;
-">
+
+<p style="margin-top:25px;">
 
 <a
 href="https://avdmc.com"
@@ -636,19 +791,20 @@ display:inline-block;
 
 </p>
 
+
 <hr
 style="
 border:none;
 border-top:1px solid rgba(255,255,255,.15);
-margin:35px 0;
+margin:30px 0;
 ">
 
-<p
-style="
+
+<p style="
 margin:0;
-font-size:14px;
+font-size:13px;
 color:#cbd5e1;
-line-height:24px;
+line-height:23px;
 ">
 
 © 2026 AVDMC. All Rights Reserved.
@@ -664,6 +820,7 @@ Terms & Conditions Apply.
 </td>
 
 </tr>
+
 
 </table>
 
